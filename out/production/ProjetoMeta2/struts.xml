@@ -140,6 +140,23 @@
             <result name = "FAILED">/fail.jsp</result>
         </action>
 
+        <action name="editor">
+            <result>/editor.jsp</result>
+        </action>
+
+        <action name="tornarEditor" class = "DropMusic.action.tornarEditorAction" method = "tornarEditor">
+            <result name = "SUCCESS">/success.jsp</result>
+            <result name = "FAILED">/fail.jsp</result>
+        </action>
+
+        <action name="partilhar">
+            <result>/partilha.jsp</result>
+        </action>
+
+        <action name="partilhaUtilizador" class = "DropMusic.action.partilhaAction" method = "partilhaAction">
+            <result name = "SUCCESS">/success.jsp</result>
+            <result name = "FAILED">/fail.jsp</result>
+        </action>
 
     </package>
 </struts>

@@ -13,7 +13,7 @@
 <body>
     <div align = "left">
         <s:form action = "gerir" >
-            <s:submit value = "Gerir"/>
+            <s:submit value = "Gerir Musicas/Album/Artista"/>
         </s:form>
         <br>
         <s:form action = "pesquisar_musicas" method = "post">
@@ -25,11 +25,11 @@
         </s:form>
         <br>
         <s:form action = "critica" method = "post">
-            <button type="button" onclick="">Escrever Crítica</button>
+            <s:submit value = "Escrever Critica"/>
         </s:form>
         <br>
         <s:form action = "editor" method = "post">
-            <button type="button" onclick="">Dar privilégios</button>
+            <s:submit value = "Tornar Editor"/>
         </s:form>
         <br>
         <s:form action = "upload" method = "post">
@@ -37,7 +37,7 @@
         </s:form>
         <br>
         <s:form action = "partilhar" method = "post">
-            <button type="button" onclick="">Partilhar Música</button>
+            <s:submit value = "Partilhar com outro Utilizador"/>
         </s:form>
         <br>
         <s:form action = "download" method = "post">
