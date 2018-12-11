@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    <constant name="struts.devMode" value="true" />
+    <constant name="struts.ui.theme" value="simple" />
+    <package name="DropMusic" extends="struts-default">
+
+        <default-action-ref name="success" />
+
+        <action name="error">
+            <result>/menuOp.jsp</result>
+        </action>
+
+        <action name="success">
+            <result>/menuOp.jsp</result>
+        </action>
+
+        <action name="index">
+            <result>/index.jsp</result>
+        </action>
+
+        <!-- 'login' action calls 'execute' in 'LoginAction' -->
+        <action name="login" class="DropMusic.action.LoginAction" method="login">
+            <result name="SUCCESS">/menuOp.jsp</result>
+            <result name="LOGIN">/login.jsp</result>
+        </action>
+
+        <action name="registar" class="DropMusic.action.LoginAction" method="registar">
+            <result name="SUCCESS">/login.jsp</result>
+            <result name="REGISTAR">/login.jsp</result>
+        </action>
+
+        <action name="gerir">
+            <result>/gerir.jsp</result>
+        </action>
+
+        <action name="gerirArtista">
+            <result>/gerirArtista.jsp</result>
+        </action>
+
+        <action name="gerirMusica">
+            <result>/gerirMusica.jsp</result>
+        </action>
+
+        <action name="gerirAlbum">
+            <result>/gerirAlbum.jsp</result>
+        </action>
+
+        <action name="alteraArtista">
+            <result>/alterarArtista.jsp</result>
+        </action>
+
+        <action name="alteraMusica">
+            <result>/alterarMusica.jsp</result>
+        </action>
+
+        <action name="alteraAlbum">
+            <result>/alterarAlbum.jsp</result>
+        </action>
+
+        <action name="alterarArtista" class = "DropMusic.action.alterarArtistaAction" method = "alteraArtista">
+            <result name="SUCCESS">/success.jsp</result>
+            <result name="FAILED">/fail.jsp</result>
+        </action>
+
+        <action name="alterarMusica" class = "DropMusic.action.alterarMusicaAction" method = "alteraMusica">
+            <result name="SUCCESS">/success.jsp</result>
+            <result name="FAILED">/fail.jsp</result>
+        </action>
+
+        <action name="alterarAlbum" class = "DropMusic.action.alterarAlbumAction" method = "alteraAlbum">
+            <result name="SUCCESS">/success.jsp</result>
+            <result name="FAILED">/fail.jsp</result>
+        </action>
+
+        <action name="inserirArtista">
+            <result>/addArtista.jsp</result>
+        </action>
+
+        <action name="inserirMusica">
+            <result>/addMusica.jsp</result>
+        </action>
+
+        <action name="inserirAlbum">
+            <result>/addAlbum.jsp</result>
+        </action>
+
+        <action name="insereArtista" class="DropMusic.action.addArtistaAction" method="addArtista">
+            <result name="SUCCESS">/success.jsp</result>
+            <result name="FAILED">/fail.jsp</result>
+        </action>
+
+        <action name="insereMusica" class="DropMusic.action.addMusicAction" method="addMusic">
+            <result name="SUCCESS">/success.jsp</result>
+            <result name="FAILED">/fail.jsp</result>
+        </action>
+
+        <action name="insereAlbum" class="DropMusic.action.addAlbumAction" method="addAlbum">
+            <result name="SUCCESS">/success.jsp</result>
+            <result name="FAILED">/fail.jsp</result>
+        </action>
+
+        <action name="removerArtista">
+            <result>/removeArtista.jsp</result>
+        </action>
+
+        <action name="removerMusica">
+            <result>/removeMusica.jsp</result>
+        </action>
+
+        <action name="removerAlbum">
+            <result>/removeAlbum.jsp</result>
+        </action>
+
+        <action name="removeArtista" class = "DropMusic.action.removeArtistaAction" method = "removeArtista">
+            <result name = "SUCCESS">/success.jsp</result>
+            <result name = "FAILED">/fail.jsp</result>
+        </action>
+
+        <action name="removeMusica" class = "DropMusic.action.removeMusicaAction" method = "removeMusica">
+            <result name = "SUCCESS">/success.jsp</result>
+            <result name = "FAILED">/fail.jsp</result>
+        </action>
+
+        <action name="removeAlbum" class = "DropMusic.action.removeAlbumAction" method = "removeAlbum">
+            <result name = "SUCCESS">/success.jsp</result>
+            <result name = "FAILED">/fail.jsp</result>
+        </action>
+
+        <action name="critica">
+            <result>/critica.jsp</result>
+        </action>
+
+        <action name="escreveCritica" class = "DropMusic.action.escreveCriticaAction" method = "escreveCritica">
+            <result name = "SUCCESS">/success.jsp</result>
+            <result name = "FAILED">/fail.jsp</result>
+        </action>
+
+
+    </package>
+</struts>
