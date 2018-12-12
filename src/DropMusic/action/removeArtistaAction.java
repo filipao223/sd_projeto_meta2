@@ -1,13 +1,18 @@
 package DropMusic.action;
-import DropMusicRMI_M.RMIInter;
-import java.net.MalformedURLException;
-import java.rmi.Naming;
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
-import java.util.Map;
 
 public class removeArtistaAction {
+
+    public String nome;
+
     public String removeArtista(){
         return "SUCCESS";
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 }

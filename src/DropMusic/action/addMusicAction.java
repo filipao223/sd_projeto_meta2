@@ -10,7 +10,17 @@ import java.util.Map;
 
 public class addMusicAction{
 
+    public String nome;
+
     public String addMusic() {
         return "SUCCESS";
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 }

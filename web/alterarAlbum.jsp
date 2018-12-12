@@ -17,9 +17,9 @@
         <s:text name = "Alterar nome" />
         <s:textfield name = "alterarNome"></s:textfield>
         <s:text name = "Alterar ano de criacao" />
-        <s:textfield name = "alterarTipo"></s:textfield>
+        <s:textfield name = "alterarAno"></s:textfield>
         <s:text name = "Alterar tipo" />
-        <s:textfield name = "alterarAlbum"></s:textfield>
+        <s:textfield name = "alterarTipo"></s:textfield>
         <s:text name = "Alterar artista" />
         <s:textfield name = "alterarArtista"></s:textfield>
         <s:text name = "Alterar descricao" />
