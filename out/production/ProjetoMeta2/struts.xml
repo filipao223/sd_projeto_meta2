@@ -26,7 +26,7 @@
         <!-- 'login' action calls 'execute' in 'LoginAction' -->
         <action name="login" class="DropMusic.action.LoginAction" method="login">
             <result name="SUCCESS">/menuOp.jsp</result>
-            <result name="LOGIN">/login.jsp</result>
+            <result name="FAIL">/login.jsp</result>
         </action>
 
         <action name="registar" class="DropMusic.action.LoginAction" method="registar">

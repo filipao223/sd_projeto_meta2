@@ -268,6 +268,8 @@ class ReceivePacket extends Thread{
 			try{
 				Map<String, Object> data = (Map<String, Object>) serializer.deserialize(packetIn.getData());
 
+				System.out.println(data);
+
                 //=============================================RESPOSTAS INTERNAS=============================================================
                 //O utilizador não recebe estas mensagens
                 //Novo servidor ligado

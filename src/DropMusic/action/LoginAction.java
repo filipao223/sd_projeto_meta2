@@ -1,4 +1,5 @@
 package DropMusic.action;
+import DropMusicRMI_M.RMIClient;
 import DropMusicRMI_M.RMIServer;
 import DropMusicRMI_M.Server;
 import com.opensymphony.xwork2.ActionSupport;
@@ -21,8 +22,23 @@ public class LoginAction extends ActionSupport implements SessionAware {
     private static final long serialVersionUID = 4L;
     private Map<String, Object> session;
     private String username = null, password = null;
-    private Server h;
 
+    public LoginBean getLoginBean() {
+        if(!session.containsKey("loginBean"))
+            this.session.put("loginBean", new LoginBean());
+        return (LoginBean) session.get("loginBean");
+    }
+
+    public void createClient(){
+        if(!session.containsKey("client")) {
+            try {
+                RMIClient c;
+                this.session.put("client",c = new RMIClient());
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     public void setUsername(String username) {
         this.username = username;
@@ -32,33 +48,19 @@ public class LoginAction extends ActionSupport implements SessionAware {
         this.password = password;
     }
 
-    public Server procura() {
-        long time = System.currentTimeMillis();
-        while (System.currentTimeMillis() < time + 30000) { //tem de se tentar conectar durante 30 segundos
-            try {
-                h = (Server) LocateRegistry.getRegistry(1099).lookup("MainServer"); //procura server para conectar
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            } catch (NotBoundException e) {
-                e.printStackTrace();
-            }
-            if(System.currentTimeMillis() >= time + 30000){ //no fim dos 30 segundos a coneção não é possível
-                System.out.println("Não existe coneção");
-                break;
-            }
-        }
-        return h;
-    }
-
-    public String login(){
+    public String login() throws RemoteException {
         if(username != null && password != null){
+            createClient();
             session.put("username",username);
             session.put("password",password);
+            this.getLoginBean().setUsername(username);
+            this.getLoginBean().setPassword(password);
+            String resposta = this.getLoginBean().login();
+            return resposta;
         }
         else{
             return "FAIL";
         }
-        return "FAIL";
     }
 
     @Override
