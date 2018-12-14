@@ -15,26 +15,26 @@ import java.util.Map;
 @SuppressWarnings("Duplicates")
 
 public class LoginBean {
-    private RMIServer serv;
-    private String username, password;
+    private String username, password,usernameRegisto,passwordRegisto;
     private Server h;
     private Map<String, Object> session;
 
     public LoginBean() {
     }
 
-    public String procura() {
+    public String procuraLogin() {
         long time = System.currentTimeMillis();
         while (System.currentTimeMillis() < time + 30000) { //tem de se tentar conectar durante 30 segundos
             try {
                 h = (Server) LocateRegistry.getRegistry(1099).lookup("MainServer"); //procura server para conectar
 
                 HashMap<String, Object> data = new HashMap<>();
+                data.put("feature", "1");
                 data.put("username", this.username);
                 data.put("password", this.password);
                 h.receive(data);
 
-                return "SUCESS";
+                return "SUCCESS";
 
             } catch (RemoteException e) {
                 e.printStackTrace();
@@ -46,7 +46,34 @@ public class LoginBean {
                 break;
             }
         }
-        return "FAIL";
+        return "FAILED";
+    }
+
+    public String procuraRegisto() {
+        long time = System.currentTimeMillis();
+        while (System.currentTimeMillis() < time + 30000) { //tem de se tentar conectar durante 30 segundos
+            try {
+                h = (Server) LocateRegistry.getRegistry(1099).lookup("MainServer"); //procura server para conectar
+
+                HashMap<String, Object> data = new HashMap<>();
+                data.put("feature", "29");
+                data.put("username", this.username);
+                data.put("password", this.password);
+                h.receive(data);
+
+                return "SUCCESS";
+
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            } catch (NotBoundException e) {
+                e.printStackTrace();
+            }
+            if(System.currentTimeMillis() >= time + 30000){ //no fim dos 30 segundos a coneção não é possível
+                System.out.println("Não existe coneção");
+                break;
+            }
+        }
+        return "FAILED";
     }
 
     public String login() throws RemoteException {
@@ -54,15 +81,33 @@ public class LoginBean {
             Server h = (Server) LocateRegistry.getRegistry(1099).lookup("MainServer"); //procura server para conectar
             //h.subscribe(this.session.get("username"), this.session.get("client"));
             HashMap<String, Object> data = new HashMap<>();
+            data.put("feature", "1");
             data.put("username", this.username);
             data.put("password", this.password);
             h.receive(data);
 
             return "SUCCESS";
         } catch (NotBoundException e) {
-            procura();
+            procuraLogin();
         }
-        return "FAIL";
+        return "FAILED";
+    }
+
+    public String registo() throws RemoteException{
+        try {
+            Server h = (Server) LocateRegistry.getRegistry(1099).lookup("MainServer"); //procura server para conectar
+            //h.subscribe(this.session.get("username"), this.session.get("client"));
+            HashMap<String, Object> data = new HashMap<>();
+            data.put("feature", "29");
+            data.put("username", this.usernameRegisto);
+            data.put("password", this.passwordRegisto);
+            h.receive(data);
+
+            return "SUCCESS";
+        } catch (NotBoundException e) {
+            procuraRegisto();
+        }
+        return "FAILED";
     }
 
 
@@ -74,6 +119,13 @@ public class LoginBean {
         this.password = password;
     }
 
+    public void setUsernameRegisto(String usernameRegisto) {
+        this.usernameRegisto = usernameRegisto;
+    }
+
+    public void setPasswordRegisto(String passwordRegisto) {
+        this.passwordRegisto = passwordRegisto;
+    }
 
     public String getUsername() {
         return username;

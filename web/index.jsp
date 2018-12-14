@@ -24,9 +24,9 @@
     <h2>Registar</h2>
     <s:form action = "registar" method = "post">
         <s:text name = "Username" />
-        <s:textfield name = "username" label = "Username" />
+        <s:textfield name = "usernameRegisto" label = "Username" />
         <s:text name = "Password" />
-        <s:password name = "password" label = "Password" />
+        <s:password name = "passwordRegisto" label = "Password" />
         <p><s:submit value = "Registar"/></p>
     </s:form>
 </div>

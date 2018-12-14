@@ -13,7 +13,7 @@
 <div align = "left">
     <s:form action = "partilhaUtilizador" method = "post">
         <s:text name = "Nome do utilizador" />
-        <s:textfield name = "nome"></s:textfield>
+        <s:textfield name = "target"></s:textfield>
         <p><s:submit /></p>
     </s:form>
 </div>

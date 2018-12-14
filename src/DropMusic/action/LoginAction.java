@@ -16,12 +16,21 @@ import java.util.Scanner;
 
 import DropMusic.model.*;
 
-@SuppressWarnings("Duplicates")
 
 public class LoginAction extends ActionSupport implements SessionAware {
     private static final long serialVersionUID = 4L;
     private Map<String, Object> session;
-    private String username = null, password = null;
+    private String username = null, password = null, usernameRegisto = null,passwordRegisto = null;
+
+    public void createUsername(){
+        if(!session.containsKey("username"))
+            this.session.put("username",username);
+    }
+
+    public void createPassword(){
+        if(!session.containsKey("password"))
+            this.session.put("password",password);
+    }
 
     public LoginBean getLoginBean() {
         if(!session.containsKey("loginBean"))
@@ -48,18 +57,41 @@ public class LoginAction extends ActionSupport implements SessionAware {
         this.password = password;
     }
 
+    public void setUsernameRegisto(String usernameRegisto) {
+        this.usernameRegisto = usernameRegisto;
+    }
+
+    public void setPasswordRegisto(String passwordRegisto) {
+        this.passwordRegisto = passwordRegisto;
+    }
+
     public String login() throws RemoteException {
         if(username != null && password != null){
             createClient();
-            session.put("username",username);
-            session.put("password",password);
+            createUsername();
+            createPassword();
             this.getLoginBean().setUsername(username);
             this.getLoginBean().setPassword(password);
             String resposta = this.getLoginBean().login();
             return resposta;
         }
         else{
-            return "FAIL";
+            return "FAILED";
+        }
+    }
+
+    public String registar() throws RemoteException{
+        if(usernameRegisto != null && passwordRegisto != null){
+            createClient();
+            createUsername();
+            createPassword();
+            this.getLoginBean().setUsernameRegisto(usernameRegisto);
+            this.getLoginBean().setPasswordRegisto(passwordRegisto);
+            String resposta = this.getLoginBean().registo();
+            return resposta;
+        }
+        else{
+            return "FAILED";
         }
     }
 

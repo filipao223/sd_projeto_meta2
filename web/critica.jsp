@@ -13,7 +13,7 @@
 <div align = "left">
     <s:form action = "escreveCritica" method = "post">
         <s:text name = "Nome do album" />
-        <s:textfield name = "nome"></s:textfield>
+        <s:textfield name = "target"></s:textfield>
         <s:text name = "Critica" />
         <s:textfield name = "critica"></s:textfield>
         <p><s:submit /></p>

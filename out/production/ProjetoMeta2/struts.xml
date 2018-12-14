@@ -26,12 +26,12 @@
         <!-- 'login' action calls 'execute' in 'LoginAction' -->
         <action name="login" class="DropMusic.action.LoginAction" method="login">
             <result name="SUCCESS">/menuOp.jsp</result>
-            <result name="FAIL">/login.jsp</result>
+            <result name="FAIL">/index.jsp</result>
         </action>
 
         <action name="registar" class="DropMusic.action.LoginAction" method="registar">
-            <result name="SUCCESS">/login.jsp</result>
-            <result name="REGISTAR">/login.jsp</result>
+            <result name="SUCCESS">/index.jsp</result>
+            <result name="FAIL">/index.jsp</result>
         </action>
 
         <action name="gerir">
@@ -135,7 +135,7 @@
             <result>/critica.jsp</result>
         </action>
 
-        <action name="escreveCritica" class = "DropMusic.action.escreveCriticaAction" method = "escreveCritica">
+        <action name="escreveCritica" class = "DropMusic.action.escreveCriticaAction" method = "escreveCriticaAction">
             <result name = "SUCCESS">/success.jsp</result>
             <result name = "FAILED">/fail.jsp</result>
         </action>
@@ -144,7 +144,7 @@
             <result>/editor.jsp</result>
         </action>
 
-        <action name="tornarEditor" class = "DropMusic.action.tornarEditorAction" method = "tornarEditor">
+        <action name="tornarEditor" class = "DropMusic.action.tornarEditorAction" method = "tornarEditorAction">
             <result name = "SUCCESS">/success.jsp</result>
             <result name = "FAILED">/fail.jsp</result>
         </action>
