@@ -47,6 +47,10 @@
         <s:form action = "logout" method = "post">
             <button type="button" onclick="">Logout</button>
         </s:form>
+        <br>
+        <s:form action="connectDropbox" method="post">
+            <s:submit value="Conectar dropbox"/>
+        </s:form>
 
     </div>
 

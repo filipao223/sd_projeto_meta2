@@ -7,11 +7,15 @@
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>DropMusic</title>
     <div align = "left" />
-    <h2>Inserir Album</h2>
+    <h2>After OAUTH</h2>
 </head>
 <body>
 <div align = "left">
-    <s:property value="ConnectDropboxBean.link"/>
+    <s:form action="saveToken" method="POST">
+        <s:text name="Api Token?:"/>
+        <s:textfield name="apiUserToken" label="Api token"/>
+        <p><s:submit value="Save"/></p>
+    </s:form>
 </div>
 
 </body>
