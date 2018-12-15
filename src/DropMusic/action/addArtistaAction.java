@@ -25,7 +25,7 @@ public class addArtistaAction extends ActionSupport implements SessionAware{
     }
 
     public String addArtista(){
-        if(nome == null){
+        if(nome.isEmpty()){
             return "FAILED";
         }
         if(checkUsername().matches("FAILED")) {

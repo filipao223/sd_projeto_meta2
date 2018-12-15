@@ -26,7 +26,7 @@ public class removeMusicaAction extends ActionSupport implements SessionAware {
     }
 
     public String removeMusica(){
-        if(nome == null){
+        if(nome.isEmpty()){
             return "FAILED";
         }
         if(checkUsername().matches("FAILED")) {

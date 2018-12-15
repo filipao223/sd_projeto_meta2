@@ -12,6 +12,9 @@ public class tornarEditorAction extends ActionSupport implements SessionAware {
     public String target;
 
     public String tornarEditorAction(){
+        if(target.isEmpty()){
+            return "FAILED";
+        }
         if(checkUsername().matches("FAILED")) {
             return "FAILED";
         }
