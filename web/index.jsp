@@ -29,6 +29,11 @@
         <s:password name = "passwordRegisto" label = "Password" />
         <p><s:submit value = "Registar"/></p>
     </s:form>
+
+    <h2>Connect dropbox</h2>
+    <s:form action="connectDropbox" method="POST">
+        <p><s:submit value="Conectar"/></p>
+    </s:form>
 </div>
 </body>
 </html>

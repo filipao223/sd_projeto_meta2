@@ -158,5 +158,10 @@
             <result name = "FAILED">/fail.jsp</result>
         </action>
 
+        <action name="connectDropbox" class="DropMusic.action.ConnectDropboxAction" method="connect">
+            <result name="SUCCESS">/oauth.jsp</result>
+            <result name="FAILED">/fail.jsp</result>
+        </action>
+
     </package>
 </struts>
