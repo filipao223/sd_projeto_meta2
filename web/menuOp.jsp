@@ -16,12 +16,12 @@
             <s:submit value = "Gerir Musicas/Album/Artista"/>
         </s:form>
         <br>
-        <s:form action = "pesquisar_musicas" method = "post">
-            <button type="button" onclick="">Pesquisar Músicas</button>
+        <s:form action = "pesquisar" method = "post">
+            <s:submit value = "Pesquisar Musicas/Albuns"/>
         </s:form>
         <br>
         <s:form action = "detalhes" method = "post">
-            <button type="button" onclick="">Consultar detalhes</button>
+            <s:submit value = "Consultar Detalhes"/>
         </s:form>
         <br>
         <s:form action = "critica" method = "post">
