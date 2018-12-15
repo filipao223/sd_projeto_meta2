@@ -49,24 +49,8 @@ public class LoginAction extends ActionSupport implements SessionAware {
         }
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setUsernameRegisto(String usernameRegisto) {
-        this.usernameRegisto = usernameRegisto;
-    }
-
-    public void setPasswordRegisto(String passwordRegisto) {
-        this.passwordRegisto = passwordRegisto;
-    }
-
     public String login() throws RemoteException {
-        if(username != null && password != null){
+        if(!username.isEmpty() && !password.isEmpty()){
             createClient();
             createUsername();
             createPassword();
@@ -81,7 +65,7 @@ public class LoginAction extends ActionSupport implements SessionAware {
     }
 
     public String registar() throws RemoteException{
-        if(usernameRegisto != null && passwordRegisto != null){
+        if(!usernameRegisto.isEmpty() && !passwordRegisto.isEmpty()){
             createClient();
             createUsername();
             createPassword();
@@ -93,6 +77,22 @@ public class LoginAction extends ActionSupport implements SessionAware {
         else{
             return "FAILED";
         }
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setUsernameRegisto(String usernameRegisto) {
+        this.usernameRegisto = usernameRegisto;
+    }
+
+    public void setPasswordRegisto(String passwordRegisto) {
+        this.passwordRegisto = passwordRegisto;
     }
 
     @Override

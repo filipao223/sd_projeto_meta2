@@ -28,7 +28,7 @@ public class addAlbumAction extends ActionSupport implements SessionAware {
     }
 
     public String addAlbum() {
-        if(nome == null){
+        if(nome.isEmpty()){
             return "FAILED";
         }
         if(checkUsername().matches("FAILED")) {

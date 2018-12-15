@@ -26,7 +26,7 @@ public class escreveCriticaAction extends ActionSupport implements SessionAware 
 
         System.out.println(target);
         System.out.println(critica);
-        if(target == null || critica == null){
+        if(target.isEmpty() || critica.isEmpty()){
             return "FAILED";
         }
         if(checkUsername().matches("FAILED")) {

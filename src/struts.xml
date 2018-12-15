@@ -23,15 +23,24 @@
             <result>/index.jsp</result>
         </action>
 
+        <action name="detalhes">
+            <result>/consulta.jsp</result>
+        </action>
+
+        <action name = "consulta" class="DropMusic.action.consultaAction" method="consulta">
+            <result name="SUCCESS">/success.jsp</result>
+            <result name="FAILED">/fail.jsp</result>
+        </action>
+
         <!-- 'login' action calls 'execute' in 'LoginAction' -->
         <action name="login" class="DropMusic.action.LoginAction" method="login">
             <result name="SUCCESS">/menuOp.jsp</result>
-            <result name="FAIL">/index.jsp</result>
+            <result name="FAILED">/index.jsp</result>
         </action>
 
         <action name="registar" class="DropMusic.action.LoginAction" method="registar">
             <result name="SUCCESS">/index.jsp</result>
-            <result name="FAIL">/index.jsp</result>
+            <result name="FAILED">/index.jsp</result>
         </action>
 
         <action name="gerir">

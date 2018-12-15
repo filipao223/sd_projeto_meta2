@@ -23,7 +23,7 @@ public class partilhaAction extends ActionSupport implements SessionAware {
     }
 
     public String partilhaAction(){
-        if(target == null){
+        if(target.isEmpty()){
             return "FAILED";
         }
         if(checkUsername().matches("FAILED")) {

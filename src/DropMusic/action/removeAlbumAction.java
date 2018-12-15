@@ -26,7 +26,7 @@ public class removeAlbumAction extends ActionSupport implements SessionAware {
     }
 
     public String removeAlbum(){
-        if(nome == null){
+        if(nome.isEmpty()){
             return "FAILED";
         }
         if(checkUsername().matches("FAILED")) {

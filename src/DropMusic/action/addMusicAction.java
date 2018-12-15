@@ -26,7 +26,7 @@ public class addMusicAction extends ActionSupport implements SessionAware{
     }
 
     public String addMusic() {
-        if(nome == null){
+        if(nome.isEmpty()){
             return "FAILED";
         }
         if(checkUsername().matches("FAILED")) {

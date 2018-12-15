@@ -337,7 +337,7 @@ class SendPacket implements Runnable{
         try{
             Random r = new Random();
             while (serverNumbers.isEmpty()){
-                System.out.println("No servers available, retrying in " + retry/1000 + " seconds");
+                //System.out.println("No servers available, retrying in " + retry/1000 + " seconds");
                 Thread.sleep(retry);
             }
 
