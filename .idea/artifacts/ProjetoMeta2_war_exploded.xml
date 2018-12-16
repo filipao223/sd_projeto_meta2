@@ -11,6 +11,9 @@
           <element id="library" level="project" name="javax.websocket:javax.websocket-api:1.1" />
           <element id="library" level="project" name="org.apache.struts.xwork:xwork-core:2.3.16.3" />
           <element id="library" level="project" name="org.apache.struts:struts2-core:2.3.16.3" />
+          <element id="library" level="project" name="javax.servlet.jsp.jstl-1.2.1" />
+          <element id="file-copy" path="$PROJECT_DIR$/scribejava-apis-2.0.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/scribejava-core-2.0.jar" />
         </element>
       </element>
     </root>

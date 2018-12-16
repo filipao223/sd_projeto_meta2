@@ -21,6 +21,20 @@ public class LoginAction extends ActionSupport implements SessionAware {
     private static final long serialVersionUID = 4L;
     private Map<String, Object> session;
     private String username = null, password = null, usernameRegisto = null,passwordRegisto = null;
+    private String link = null;
+    private String apiUserToken = null;
+
+    public void createLink(){
+        if (!session.containsKey("link")){
+            this.session.put("link", link);
+        }
+    }
+
+    public void createApiUserToken(){
+        if (!session.containsKey("apiUserToken")){
+            this.session.put("apiUserToken", apiUserToken);
+        }
+    }
 
     public void createUsername(){
         if(!session.containsKey("username"))
@@ -79,6 +93,27 @@ public class LoginAction extends ActionSupport implements SessionAware {
         }
     }
 
+    public String connectDropbox(){
+        if (link==null){
+            createLink();
+            String resposta = this.getLoginBean().connect();
+            return resposta;
+        }
+        return "FAILED";
+    }
+
+    public String saveToken(){
+        if (apiUserToken!=null){
+            System.out.println("Token is: " + apiUserToken);
+            System.out.println("Entered here");
+            this.getLoginBean().setApiUserToken(apiUserToken);
+            String resposta = this.getLoginBean().checkToken();
+            return resposta;
+        }
+        System.out.println("Did not enter here");
+        return "FAILED";
+    }
+
     public void setUsername(String username) {
         this.username = username;
     }
@@ -93,6 +128,14 @@ public class LoginAction extends ActionSupport implements SessionAware {
 
     public void setPasswordRegisto(String passwordRegisto) {
         this.passwordRegisto = passwordRegisto;
+    }
+
+    public void setApiUserToken(String apiUserToken){
+        this.apiUserToken = apiUserToken;
+    }
+
+    public String getApiUserToken(){
+        return apiUserToken;
     }
 
     @Override
