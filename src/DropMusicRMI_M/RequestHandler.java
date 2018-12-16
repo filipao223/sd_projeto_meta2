@@ -544,6 +544,20 @@ public class RequestHandler implements Runnable {
                             e.printStackTrace();
                         }
                         sendCallback(user, "Music not shared", null, code);
+                        break;
+                    case Request.ADD_TOKEN:
+                        user = (String) data.get("username");
+                        //Put the token in database
+                        try{
+                            String token = (String) data.get("token");
+                            String sql = "UPDATE users SET token=\"" + token + "\" WHERE name=\"" + user + "\";";
+                            databaseAccess(user, sql, false, "", Request.ADD_TOKEN);
+                            sendCallback(user, "Token added", null, code);
+                        }catch (Exception e){
+                            e.printStackTrace();
+                            sendCallback(user, "Error", null, code);
+                        }
+                        break;
                 }
             }
         } catch (Exception e){
