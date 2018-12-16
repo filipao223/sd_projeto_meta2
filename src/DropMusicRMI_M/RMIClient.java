@@ -61,9 +61,6 @@ public class RMIClient extends UnicastRemoteObject implements Client {
         int PORT_TCP = 7003;
         int TCP_LISTEN_TIMEOUT = 5000;
 
-        last = data;
-
-
 //============================================NNEW=DO TIPO CALLBACK=============================================================
         if (((String)data.get("feature")).matches("13")){
             // TODO mudar a maneira de verificar se esta a receber resultados de pesquisa

@@ -1,5 +1,6 @@
 package DropMusic.model;
 
+import DropMusicRMI_M.RMIClient;
 import DropMusicRMI_M.RMIServer;
 import DropMusicRMI_M.Server;
 
@@ -51,12 +52,27 @@ public class addMusicaBean {
             Server h = (Server) LocateRegistry.getRegistry(1099).lookup("MainServer"); //procura server para conectar
             //h.subscribe(this.session.get("username"), this.session.get("client"));
             HashMap<String, Object> data = new HashMap<>();
+            RMIClient c = new RMIClient();
+            c.setName(this.username);
+            h.subscribe(this.username, c);
             data.put("feature", "2");
             data.put("username", this.username);
             data.put("action", "34_".concat(this.nome));
             h.receive(data);
 
-            return "SUCCESS";
+            try{
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            System.out.println("Ultimo packote " + c.getLast());
+
+            if(c.getLast().get("answer").equals("Item added")){
+                return "SUCCESS";
+            }
+
+            return "FAILED";
         } catch (NotBoundException e) {
             procura();
         } catch (AccessException e) {

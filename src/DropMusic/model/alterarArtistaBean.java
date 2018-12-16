@@ -1,5 +1,6 @@
 package DropMusic.model;
 
+import DropMusicRMI_M.RMIClient;
 import DropMusicRMI_M.Server;
 
 import java.rmi.AccessException;
@@ -49,12 +50,27 @@ public class alterarArtistaBean {
             //h.subscribe(this.session.get("username"), this.session.get("client"));
 
             HashMap<String, Object> data = new HashMap<>();
+            RMIClient c = new RMIClient();
+            c.setName(this.username);
+            h.subscribe(this.username, c);
             data.put("feature", "2");
             data.put("username", this.username);
             data.put("action", this.request);
             h.receive(data);
 
-            return "SUCCESS";
+            try{
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            System.out.println("Ultimo packote " + c.getLast());
+
+            if(c.getLast().get("answer").equals("Field edited")){
+                return "SUCCESS";
+            }
+
+            return "FAILED";
         } catch (NotBoundException e) {
             procura();
         } catch (AccessException e) {

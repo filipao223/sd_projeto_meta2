@@ -116,6 +116,12 @@ public class LoginBean {
 
             h.receive(data);
 
+            try{
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
             System.out.println("Ultimo packote " + c.getLast());
 
             if(c.getLast().get("answer").equals("User logged in")){
@@ -135,17 +141,26 @@ public class LoginBean {
             //h.subscribe(this.session.get("username"), this.session.get("client"));
             HashMap<String, Object> data = new HashMap<>();
             RMIClient c = new RMIClient();
-            c.setName(this.username);
-            h.subscribe(this.username, c);
+            c.setName(this.usernameRegisto);
+            h.subscribe(this.usernameRegisto, c);
 
             data.put("feature", "29");
             data.put("username", this.usernameRegisto);
             data.put("password", this.passwordRegisto);
             h.receive(data);
 
-            if(c.getLast().get("answer").equals("User registered")){
+            try{
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            System.out.println("Ultimo packote " + c.getLast());
+
+            if(c.getLast().get("answer").equals("User logged in")){
                 return "SUCCESS";
             }
+
         } catch (NotBoundException e) {
             procuraRegisto();
         }
