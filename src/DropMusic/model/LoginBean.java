@@ -9,6 +9,12 @@ import com.github.scribejava.core.model.Token;
 import com.github.scribejava.core.model.Verifier;
 import com.github.scribejava.core.oauth.OAuthService;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.apache.struts2.interceptor.ServletRequestAware;
+import org.apache.struts2.interceptor.ServletResponseAware;
+
 import java.awt.*;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -23,7 +29,7 @@ import java.util.Scanner;
 
 @SuppressWarnings("Duplicates")
 
-public class LoginBean {
+public class LoginBean implements ServletResponseAware, ServletRequestAware {
     private String username, password,usernameRegisto,passwordRegisto, link;
     private Server h;
     private Map<String, Object> session;
@@ -34,6 +40,8 @@ public class LoginBean {
 
     // Access codes #2: per user per application
     private String apiUserToken;
+    private String url;
+    private String code;
 
     public LoginBean() {
     }
@@ -116,6 +124,11 @@ public class LoginBean {
 
             h.receive(data);
 
+            try{
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             System.out.println("Ultimo packote " + c.getLast());
 
             if(c.getLast().get("answer").equals("User logged in")){
@@ -155,54 +168,31 @@ public class LoginBean {
     public String connect(){
         Scanner in = new Scanner(System.in);
 
+        //Check if there is a cookie
+        for(Cookie c : servletRequest.getCookies()) {
+            if (c.getName().equals("token"))
+                //Expire the cookie
+                c.setMaxAge(0);
+        }
+
         OAuthService service = new ServiceBuilder()
                 .provider(DropBoxApi2.class)
                 .apiKey(API_APP_KEY)
                 .apiSecret(API_APP_SECRET)
-                .callback("http://localhost:8081/oauth.jsp")
+                .callback("http://localhost:8081/saveToken")
                 .build();
 
         if (service == null) return "FAILED";
 
-        //try {
-
-        //if ( apiUserToken.equals("") ) {
-            link = service.getAuthorizationUrl(null);
-            try{
-                if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
-                    Desktop.getDesktop().browse(URI.create(link));
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
+        link = service.getAuthorizationUrl(null);
+        try{
+            if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+                Desktop.getDesktop().browse(URI.create(link));
             }
-            return "SUCCESS";
-                /*System.out.println("Authorize scribe here:");
-                System.out.println(service.getAuthorizationUrl(null));
-                System.out.println("Press enter when done.");
-                System.out.print(">>");
-                Verifier verifier = new Verifier(in.nextLine());
-                Token accessToken = service.getAccessToken(null, verifier);
-                System.out.println("Define API_USER_TOKEN: " + accessToken.getToken());
-                //System.out.println("Define API_USER_SECRET: " + accessToken.getSecret());
-                return "FAILED";*/
-       // }
-
-            /*Token accessToken = new Token( API_USER_TOKEN, "");
-            return "SUCSESS";
-
-            /*listFiles(service, accessToken);
-            addFile("teste.txt", service, accessToken);
-            listFiles(service, accessToken);
-            deleteFile("teste.txt", service, accessToken);
-            listFiles(service, accessToken);
-
-
-        } catch(OAuthException e) {
+        } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            in.close();
-        }*/
-       // return "FAILED";
+        }
+        return "SUCCESS";
     }
 
     public String checkToken(){
@@ -210,14 +200,35 @@ public class LoginBean {
                 .provider(DropBoxApi2.class)
                 .apiKey(API_APP_KEY)
                 .apiSecret(API_APP_SECRET)
-                .callback("http://localhost:8081/oauth.jsp")
+                .callback("http://localhost:8081/saveToken")
                 .build();
-        System.out.println("Token in bean is: " + this.apiUserToken);
-        Verifier verifier = new Verifier(this.apiUserToken);
+        System.out.println("Token in bean is: " + this.code);
+        Verifier verifier = new Verifier(this.code);
         Token accessToken = service.getAccessToken(null, verifier);
-        System.out.println("Define API_USER_TOKEN: " + accessToken.getToken());
-        System.out.println("Define API_USER_SECRET: " + accessToken.getSecret());
-        return "SUCCESS";
+        if (accessToken != null){
+            System.out.println("Define API_USER_TOKEN: " + accessToken.getToken());
+            System.out.println("Define API_USER_SECRET: " + accessToken.getSecret());
+
+            //Save in cookies
+            Cookie token = new Cookie("token", accessToken.getToken());
+            token.setMaxAge(60*60*24); // Make the cookie last a day
+            servletResponse.addCookie(token);
+
+            return "redirect";
+        }
+        return "FAILED";
+    }
+
+    private HttpServletResponse servletResponse;
+    @Override
+    public void setServletResponse(HttpServletResponse servletResponse) {
+        this.servletResponse = servletResponse;
+    }
+
+    protected HttpServletRequest servletRequest;
+    @Override
+    public void setServletRequest(HttpServletRequest servletRequest) {
+        this.servletRequest = servletRequest;
     }
 
 
@@ -247,6 +258,22 @@ public class LoginBean {
 
     public String getApiUserToken(){
         return this.apiUserToken;
+    }
+
+    public void setUrl(String url){
+        this.url = url;
+    }
+
+    public String getUrl(String url){
+        return this.url;
+    }
+
+    public void setCode(String code){
+        this.code = code;
+    }
+
+    public String getCode(){
+        return this.code;
     }
 
 }
