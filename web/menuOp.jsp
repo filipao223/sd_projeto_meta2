@@ -32,21 +32,14 @@
             <s:submit value = "Tornar Editor"/>
         </s:form>
         <br>
-        <s:form action = "upload" method = "post">
-            <button type="button" onclick="">Upload</button>
-        </s:form>
-        <br>
         <s:form action = "partilhar" method = "post">
             <s:submit value = "Partilhar com outro Utilizador"/>
         </s:form>
         <br>
-        <s:form action = "download" method = "post">
-            <button type="button" onclick="">Download</button>
+        <s:form action = "logout" method = "post">
+            <s:submit value = "Logout"/>
         </s:form>
         <br>
-        <s:form action = "logout" method = "post">
-            <button type="button" onclick="">Logout</button>
-        </s:form>
         <br>
         <s:form action="connectDropbox" method="post">
             <s:submit value="Conectar dropbox"/>
@@ -55,6 +48,19 @@
         <s:form action="associarDropbox" method="post">
             <s:submit value="Associar conta à dropbox"/>
         </s:form>
+
+        <s:form action="associarFicheiro" method="post">
+            <s:submit value="Associar musica a um ficheiro"/>
+        </s:form>
+
+        <s:form action="partilhaDropbox" method="post">
+            <s:submit value="Partilha de músicas através da Dropbox"/>
+        </s:form>
+
+        <s:form action="playback" method="post">
+            <s:submit value="Playback de Música"/>
+        </s:form>
+
 
     </div>
 
