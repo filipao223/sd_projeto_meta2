@@ -53,7 +53,7 @@
             <s:submit value="Associar musica a um ficheiro"/>
         </s:form>
 
-        <s:form action="partilhaDropbox" method="post">
+        <s:form action="partilharDropbox" method="post">
             <s:submit value="Partilha de músicas através da Dropbox"/>
         </s:form>
 
