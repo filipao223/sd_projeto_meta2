@@ -80,4 +80,5 @@ public class Request {
     protected static final int CHECK_SHARE_USERS = 67; //internal, code to check in db if are users sharing already
     protected static final int ADD_SHARE_USERS   = 68; //internal
     protected static final int CHECK_UPLOADER    = 69;
+    protected static final int ADD_TOKEN         = 71; //Adds an access token to this user
 }
