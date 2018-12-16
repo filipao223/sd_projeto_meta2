@@ -10,4 +10,10 @@ public interface Client extends Remote{
 
 	public String getName() throws RemoteException;
 
+	public void setLast(Map<String, Object> last) throws RemoteException;
+
+	public Map<String, Object> getLast() throws RemoteException;
+
+	public void setName(String name) throws RemoteException;
+
 }

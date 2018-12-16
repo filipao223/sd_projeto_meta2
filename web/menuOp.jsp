@@ -17,7 +17,7 @@
         </s:form>
         <br>
         <s:form action = "pesquisar" method = "post">
-            <s:submit value = "Pesquisar Musicas/Albuns"/>
+            <s:submit value = "Pesquisar Artistas/Albuns"/>
         </s:form>
         <br>
         <s:form action = "detalhes" method = "post">

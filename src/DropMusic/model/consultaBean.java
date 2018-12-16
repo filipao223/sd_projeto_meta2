@@ -31,7 +31,6 @@ public class consultaBean {
         this.nomeArtista = nomeArtista;
     }
 
-    ;
     private Map<String, Object> session;
 
     public String procuraAlbum() {

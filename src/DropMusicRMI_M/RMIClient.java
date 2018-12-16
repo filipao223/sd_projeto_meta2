@@ -28,6 +28,7 @@ import java.util.Scanner;
 public class RMIClient extends UnicastRemoteObject implements Client {
 
     static String name = null; //Nome do cliente
+    public Map<String, Object> last = null;
 
     /**
      * Constructor of RMIClient
@@ -37,6 +38,7 @@ public class RMIClient extends UnicastRemoteObject implements Client {
     public RMIClient() throws RemoteException {
         super();
     }
+
 
     /**
      * Callback Method that prints on the client the server response
@@ -55,8 +57,11 @@ public class RMIClient extends UnicastRemoteObject implements Client {
             System.out.println(mentry.getValue());
         }*/
 
+
         int PORT_TCP = 7003;
         int TCP_LISTEN_TIMEOUT = 5000;
+
+        last = data;
 
 
 //============================================NNEW=DO TIPO CALLBACK=============================================================
@@ -191,6 +196,18 @@ public class RMIClient extends UnicastRemoteObject implements Client {
      */
     public String getName() throws RemoteException{
         return name;
+    }
+
+    public void setName(String name) throws RemoteException{
+        this.name = name;
+    }
+
+    public void setLast(Map<String, Object> last) throws RemoteException {
+        this.last = last;
+    }
+
+    public Map<String, Object> getLast() throws RemoteException {
+        return last;
     }
 
 

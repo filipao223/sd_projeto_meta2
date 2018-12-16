@@ -23,6 +23,28 @@
             <result>/index.jsp</result>
         </action>
 
+        <action name="pesquisar">
+            <result>/pesquisar.jsp</result>
+        </action>
+
+        <action name="pesquisarArtista">
+            <result>/pesquisarArtista.jsp</result>
+        </action>
+
+        <action name="pesquisarAlbum">
+            <result>/pesquisarAlbum.jsp</result>
+        </action>
+
+        <action name="pesquisaAlbum" class="DropMusic.action.pesquisarAlbumAction" method="pesquisarAlbum">
+            <result name="SUCCESS">/success.jsp</result>
+            <result name="FAILED">/fail.jsp</result>
+        </action>
+
+        <action name="pesquisaArtista" class="DropMusic.action.pesquisarArtistaAction" method="pesquisarArtista">
+            <result name="SUCCESS">/success.jsp</result>
+            <result name="FAILED">/fail.jsp</result>
+        </action>
+
         <action name="detalhes">
             <result>/consulta.jsp</result>
         </action>

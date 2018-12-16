@@ -23,5 +23,14 @@
     <orderEntry type="library" name="org.apache.struts.xwork:xwork-core:2.3.16.3" level="project" />
     <orderEntry type="library" name="org.apache.struts:struts2-core:2.3.16.3" level="project" />
     <orderEntry type="library" name="javax.servlet.jsp.jstl-1.2.1" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/database/sqlite-jdbc-3.23.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>

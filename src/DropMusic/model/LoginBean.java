@@ -29,10 +29,15 @@ public class LoginBean {
                 h = (Server) LocateRegistry.getRegistry(1099).lookup("MainServer"); //procura server para conectar
 
                 HashMap<String, Object> data = new HashMap<>();
+                RMIClient c = new RMIClient();
+                h.subscribe(this.username, c);
+
                 data.put("feature", "1");
                 data.put("username", this.username);
                 data.put("password", this.password);
                 h.receive(data);
+
+                System.out.println(c.getLast());
 
                 return "SUCCESS";
 
@@ -56,10 +61,14 @@ public class LoginBean {
                 h = (Server) LocateRegistry.getRegistry(1099).lookup("MainServer"); //procura server para conectar
 
                 HashMap<String, Object> data = new HashMap<>();
+                RMIClient c = new RMIClient();
+                h.subscribe(this.username, c);
                 data.put("feature", "29");
                 data.put("username", this.username);
                 data.put("password", this.password);
                 h.receive(data);
+
+                System.out.println(c.getLast());
 
                 return "SUCCESS";
 
@@ -81,12 +90,23 @@ public class LoginBean {
             Server h = (Server) LocateRegistry.getRegistry(1099).lookup("MainServer"); //procura server para conectar
             //h.subscribe(this.session.get("username"), this.session.get("client"));
             HashMap<String, Object> data = new HashMap<>();
+            RMIClient c = new RMIClient();
+            c.setName(this.username);
+            h.subscribe(this.username, c);
+
             data.put("feature", "1");
             data.put("username", this.username);
             data.put("password", this.password);
+
             h.receive(data);
 
-            return "SUCCESS";
+            System.out.println("Ultimo packote " + c.getLast());
+
+            if(c.getLast().get("answer").equals("User logged in")){
+                return "SUCCESS";
+            }
+
+            return "FAILED";
         } catch (NotBoundException e) {
             procuraLogin();
         }
@@ -98,12 +118,18 @@ public class LoginBean {
             Server h = (Server) LocateRegistry.getRegistry(1099).lookup("MainServer"); //procura server para conectar
             //h.subscribe(this.session.get("username"), this.session.get("client"));
             HashMap<String, Object> data = new HashMap<>();
+            RMIClient c = new RMIClient();
+            c.setName(this.username);
+            h.subscribe(this.username, c);
+
             data.put("feature", "29");
             data.put("username", this.usernameRegisto);
             data.put("password", this.passwordRegisto);
             h.receive(data);
 
-            return "SUCCESS";
+            if(c.getLast().get("answer").equals("User registered")){
+                return "SUCCESS";
+            }
         } catch (NotBoundException e) {
             procuraRegisto();
         }

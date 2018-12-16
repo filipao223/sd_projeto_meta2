@@ -1,10 +1,5 @@
 package DropMusicRMI_M;
 
-import DropMusicRMI_M.Client;
-import DropMusicRMI_M.Request;
-import DropMusicRMI_M.Serializer;
-import DropMusicRMI_M.Server;
-
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
@@ -32,6 +27,8 @@ public class RMIServer extends UnicastRemoteObject implements Server {
 	private static int PORT = 4321;
 	private static ExecutorService executor = Executors.newFixedThreadPool(5);
 
+	public Map<String, Object> lastReceived;
+
     /**
      * Constructor of RMIServer
      * @throws RemoteException
@@ -40,6 +37,7 @@ public class RMIServer extends UnicastRemoteObject implements Server {
 	public RMIServer() throws RemoteException {
 		super();
 	}
+
 
 	/**
 	 * This function is the one the one responsible for the pokes that the secondary servers sends to the primary
@@ -201,6 +199,7 @@ class ReceivePacket extends Thread{
     private static Serializer serializer = new Serializer();
     private static List<Integer> serverNumbers;
     private static ArrayList<Client> clients;
+	private Map<String, Object> lastReceived;
 
     /**
      * Constructor of ReceivePacket
@@ -249,6 +248,7 @@ class ReceivePacket extends Thread{
         private List<Integer> serverNumbers;
         private DatagramPacket packetIn;
         private ArrayList<Client> clients;
+        public Map<String, Object> lastReceived;
 
         /**
          * Constructor of Worker
@@ -263,12 +263,15 @@ class ReceivePacket extends Thread{
             this.clients = clients;
         }
 
-        @Override
+		public Map<String, Object> getLastReceived() {
+			return lastReceived;
+		}
+
+		@Override
         public void run() {
 			try{
 				Map<String, Object> data = (Map<String, Object>) serializer.deserialize(packetIn.getData());
 
-				System.out.println(data);
 
                 //=============================================RESPOSTAS INTERNAS=============================================================
                 //O utilizador não recebe estas mensagens
