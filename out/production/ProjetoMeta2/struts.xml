@@ -200,5 +200,21 @@
             <result name="FAILED">/fail.jsp</result>
         </action>
 
+        <action name="associarDropbox">
+            <result>/menuOp.jsp</result>
+        </action>
+
+        <action name="associarFicheiros">
+            <result>/associarFicheiros.jsp</result>
+        </action>
+
+        <action name="partilharDropbox">
+            <result>/partilhaDropbox.jsp></result>
+        </action>
+
+        <action name="playback">
+            <result>/playback.jsp</result>
+        </action>
+
     </package>
 </struts>
