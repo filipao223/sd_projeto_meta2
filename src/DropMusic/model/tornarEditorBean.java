@@ -65,7 +65,8 @@ public class tornarEditorBean {
 
             System.out.println("Ultimo packote " + c.getLast());
 
-            if(c.getLast().get("answer").equals("Made new editor")){
+            if(c.getLast().get("answer").equals(this.target)){
+                h.remove(this.username, c);
                 return "SUCCESS";
             }
 

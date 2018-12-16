@@ -193,7 +193,7 @@ public class RequestHandler implements Runnable {
                         String editor = null;
                         String newEditor = null;
                         try{
-                            editor = (String) data.get("editor");
+                            editor = (String) data.get("username");
                             newEditor = (String) data.get("newEditor");
 
                             int rc = checkLoginState(editor);

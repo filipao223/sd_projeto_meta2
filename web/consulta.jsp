@@ -17,6 +17,8 @@
         <s:text name = "Nome do artista" />
         <s:textfield name = "nomeArtista"></s:textfield>
         <p><s:submit /></p>
+        <s:text name="O Resultado vai aparecer aqui">${info}</s:text>
+
     </s:form>
 </div>
 

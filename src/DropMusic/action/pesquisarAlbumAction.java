@@ -64,21 +64,21 @@ public class pesquisarAlbumAction extends ActionSupport implements SessionAware 
             String request = "26_40_".concat(nomeArtista);
             this.getpesquisarAlbumBean().setRequest(request);
             this.getpesquisarAlbumBean().setUsername((String) this.session.get("username"));
-            resultado = this.getpesquisarAlbumBean().procura();
+            resultado = this.getpesquisarAlbumBean().pesquisaAlbum();
             return resultado;
         }
         if(!nome.isEmpty()){
             String request = "26_39_".concat(nome);
             this.getpesquisarAlbumBean().setRequest(request);
             this.getpesquisarAlbumBean().setUsername((String) this.session.get("username"));
-            resultado = this.getpesquisarAlbumBean().procura();
+            resultado = this.getpesquisarAlbumBean().pesquisaAlbum();
             return resultado;
         }
         if(!tipo.isEmpty()){
             String request = "26_41_".concat(tipo);
             this.getpesquisarAlbumBean().setRequest(request);
             this.getpesquisarAlbumBean().setUsername((String) this.session.get("username"));
-            resultado = this.getpesquisarAlbumBean().procura();
+            resultado = this.getpesquisarAlbumBean().pesquisaAlbum();
             return resultado;
         }
         return resultado;

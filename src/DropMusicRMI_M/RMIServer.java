@@ -93,6 +93,14 @@ public class RMIServer extends UnicastRemoteObject implements Server {
 		}
 	}
 
+	public void remove(String name,Client c) throws RemoteException {
+		System.out.println(c);
+		if(!client.contains(c)) { //verifica se o arraylist de clients contem o cliente, se não, adiciona
+			client.remove(c);
+			System.out.println("Subscribe " + name);
+		}
+	}
+
 
 	/**
 	 * This functions receives a HashMap

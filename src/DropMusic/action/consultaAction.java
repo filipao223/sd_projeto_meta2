@@ -1,6 +1,5 @@
 package DropMusic.action;
 
-import DropMusic.model.addAlbumBean;
 import DropMusic.model.consultaBean;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.interceptor.SessionAware;
@@ -13,7 +12,9 @@ public class consultaAction extends ActionSupport implements SessionAware {
 
     private static final long serialVersionUID = 4L;
     private Map<String, Object> session;
-    public String nomeAlbum,nomeArtista;
+    public String nomeAlbum;
+    public String nomeArtista;
+    public String info;
 
     public String getNomeAlbum() {
         return nomeAlbum;
@@ -56,12 +57,40 @@ public class consultaAction extends ActionSupport implements SessionAware {
             this.getconsultaBean().setNomeArtista(nomeArtista);
             this.getconsultaBean().setUsername((String) this.session.get("username"));
             resultado = this.getconsultaBean().consultaArtista();
+
+            info = getconsultaBean().getInfo();
+
+            System.out.println("Info " + info);
+
+            try{
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
             return resultado;
         }
         if(!nomeAlbum.isEmpty()){
             this.getconsultaBean().setNomeAlbum(nomeAlbum);
             this.getconsultaBean().setUsername((String) this.session.get("username"));
             resultado = this.getconsultaBean().consultaAlbum();
+
+            try{
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            info = this.getconsultaBean().getInfo();
+
+            System.out.println("Info " + info);
+
+            try{
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
             return resultado;
         }
         return resultado;

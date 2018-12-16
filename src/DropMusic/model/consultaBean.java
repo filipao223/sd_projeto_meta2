@@ -1,5 +1,6 @@
 package DropMusic.model;
 
+import DropMusicRMI_M.RMIClient;
 import DropMusicRMI_M.Server;
 
 import java.rmi.AccessException;
@@ -13,7 +14,15 @@ import java.util.Map;
 
 public class consultaBean {
     private Server h;
-    private String username,nomeAlbum,nomeArtista;
+    private String username,nomeAlbum,nomeArtista,info = null;
+
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
+    }
 
     public String getNomeAlbum() {
         return nomeAlbum;
@@ -92,12 +101,31 @@ public class consultaBean {
             Server h = (Server) LocateRegistry.getRegistry(1099).lookup("MainServer"); //procura server para conectar
             //h.subscribe(this.session.get("username"), this.session.get("client"));
             HashMap<String, Object> data = new HashMap<>();
+            RMIClient c = new RMIClient();
+            c.setName(this.username);
+            h.subscribe(this.username, c);
             data.put("feature", "61");
             data.put("username", this.username);
             data.put("artist", this.nomeArtista);
             h.receive(data);
 
-            return "SUCCESS";
+            h.remove(this.username, c);
+
+            try{
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            System.out.println("Ultimo packote " + c.getLast());
+
+            if(c.getLast().get("answer").equals("Results found")){
+                setInfo((String) c.getLast().get("optional"));
+                h.remove(this.username, c);
+                return "SUCCESS";
+            }
+            h.remove(this.username, c);
+            return "FAILED";
         } catch (NotBoundException e) {
             procuraArtista();
         } catch (AccessException e) {
@@ -113,12 +141,31 @@ public class consultaBean {
             Server h = (Server) LocateRegistry.getRegistry(1099).lookup("MainServer"); //procura server para conectar
             //h.subscribe(this.session.get("username"), this.session.get("client"));
             HashMap<String, Object> data = new HashMap<>();
+            RMIClient c = new RMIClient();
+            c.setName(this.username);
+            h.subscribe(this.username, c);
             data.put("feature", "60");
             data.put("username", this.username);
-            data.put("album", this.nomeAlbum);
+            data.put("artist", this.nomeAlbum);
             h.receive(data);
 
-            return "SUCCESS";
+            h.remove(this.username, c);
+
+            try{
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            System.out.println("Ultimo packote " + c.getLast());
+
+            if(c.getLast().get("answer").equals("Results found")){
+                setInfo((String) c.getLast().get("optional"));
+                return "SUCCESS";
+            }
+
+
+            return "FAILED";
         } catch (NotBoundException e) {
             procuraAlbum();
         } catch (AccessException e) {

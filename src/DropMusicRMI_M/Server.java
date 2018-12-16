@@ -10,4 +10,6 @@ public interface Server extends Remote {
 
 	public void subscribe(String name, Client client) throws RemoteException;
 
+	public void remove(String name, Client client) throws RemoteException;
+
 }

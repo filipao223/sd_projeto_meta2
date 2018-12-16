@@ -59,6 +59,8 @@ public class addArtistaBean {
             data.put("action", "32_".concat(this.nome));
             h.receive(data);
 
+            h.remove(this.username, c);
+
             try{
                 Thread.sleep(2000);
             } catch (InterruptedException e) {

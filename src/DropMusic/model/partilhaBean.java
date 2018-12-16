@@ -31,6 +31,8 @@ public class partilhaBean {
                 data.put("target", this.target);
                 h.receive(data);
 
+                h.remove(this.username, c);
+
                 try{
                     Thread.sleep(2000);
                 } catch (InterruptedException e) {

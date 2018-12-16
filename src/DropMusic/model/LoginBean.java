@@ -116,6 +116,7 @@ public class LoginBean {
 
             h.receive(data);
 
+
             try{
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
@@ -124,7 +125,7 @@ public class LoginBean {
 
             System.out.println("Ultimo packote " + c.getLast());
 
-            if(c.getLast().get("answer").equals("User logged in")){
+            if(c.getLast().get("answer").equals("User logged in") || c.getLast().get("answer").equals("User already logged in")){
                 return "SUCCESS";
             }
 

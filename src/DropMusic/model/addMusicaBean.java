@@ -60,6 +60,8 @@ public class addMusicaBean {
             data.put("action", "34_".concat(this.nome));
             h.receive(data);
 
+            h.remove(this.username, c);
+
             try{
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
