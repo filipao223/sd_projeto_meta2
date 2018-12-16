@@ -52,6 +52,10 @@
             <s:submit value="Conectar dropbox"/>
         </s:form>
 
+        <s:form action="associarDropbox" method="post">
+            <s:submit value="Associar conta à dropbox"/>
+        </s:form>
+
     </div>
 
 </body>
