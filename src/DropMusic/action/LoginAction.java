@@ -23,6 +23,8 @@ public class LoginAction extends ActionSupport implements SessionAware {
     private String username = null, password = null, usernameRegisto = null,passwordRegisto = null;
     private String link = null;
     private String apiUserToken = null;
+    private String url = null;
+    private String code = null;
 
     public void createLink(){
         if (!session.containsKey("link")){
@@ -103,14 +105,12 @@ public class LoginAction extends ActionSupport implements SessionAware {
     }
 
     public String saveToken(){
-        if (apiUserToken!=null){
-            System.out.println("Token is: " + apiUserToken);
-            System.out.println("Entered here");
-            this.getLoginBean().setApiUserToken(apiUserToken);
+        if (code != null){
+            this.getLoginBean().setCode(code);
             String resposta = this.getLoginBean().checkToken();
             return resposta;
         }
-        System.out.println("Did not enter here");
+        //System.out.println("Did not enter here");
         return "FAILED";
     }
 
@@ -136,6 +136,22 @@ public class LoginAction extends ActionSupport implements SessionAware {
 
     public String getApiUserToken(){
         return apiUserToken;
+    }
+
+    public void setUrl(String url){
+        this.url = url;
+    }
+
+    public String getUrl(String url){
+        return this.url;
+    }
+
+    public void setCode(String code){
+        this.code = code;
+    }
+
+    public String getCode(){
+        return this.code;
     }
 
     @Override
