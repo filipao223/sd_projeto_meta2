@@ -225,6 +225,20 @@ public class LoginBean implements ServletResponseAware, ServletRequestAware {
             token.setMaxAge(60*60*24); // Make the cookie last a day
             servletResponse.addCookie(token);
 
+            try {
+                Server h = (Server) LocateRegistry.getRegistry(1099).lookup("MainServer"); //procura server para conectar
+                HashMap<String, Object> data = new HashMap<>();
+                data.put("feature", "71");
+                data.put("username", this.username);
+                data.put("token", token);
+
+                h.receive(data);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            } catch (NotBoundException e) {
+                e.printStackTrace();
+            }
+
             return "redirect";
         }
         return "FAILED";
