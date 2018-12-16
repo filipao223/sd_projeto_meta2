@@ -1,5 +1,6 @@
 package DropMusic.model;
 
+import DropMusicRMI_M.RMIClient;
 import DropMusicRMI_M.RMIServer;
 import DropMusicRMI_M.Server;
 
@@ -44,15 +45,31 @@ public class tornarEditorBean {
 
     public String partilha(){
         try {
-            Server h = (Server) LocateRegistry.getRegistry(1099).lookup("MainServer"); //procura server para conectar
-            //h.subscribe(this.session.get("username"), this.session.get("client"));
+            h = (Server) LocateRegistry.getRegistry(1099).lookup("MainServer"); //procura server para conectar
+
             HashMap<String, Object> data = new HashMap<>();
+            RMIClient c = new RMIClient();
+            c.setName(this.username);
+            h.subscribe(this.username, c);
             data.put("feature", "6");
             data.put("username", this.username);
             data.put("newEditor", this.target);
+
             h.receive(data);
 
-            return "SUCCESS";
+            try{
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            System.out.println("Ultimo packote " + c.getLast());
+
+            if(c.getLast().get("answer").equals("Made new editor")){
+                return "SUCCESS";
+            }
+
+            return "FAILED";
         } catch (NotBoundException e) {
             procura();
         } catch (AccessException e) {

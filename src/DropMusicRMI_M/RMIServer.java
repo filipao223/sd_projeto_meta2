@@ -27,8 +27,6 @@ public class RMIServer extends UnicastRemoteObject implements Server {
 	private static int PORT = 4321;
 	private static ExecutorService executor = Executors.newFixedThreadPool(5);
 
-	public Map<String, Object> lastReceived;
-
     /**
      * Constructor of RMIServer
      * @throws RemoteException
@@ -213,7 +211,11 @@ class ReceivePacket extends Thread{
         this.clients = clients;
     }
 
-    @Override
+	public void setLastReceived(Map<String, Object> lastReceived) {
+		this.lastReceived = lastReceived;
+	}
+
+	@Override
     public void run() {
         try{
             MulticastSocket socket = new MulticastSocket(PORT);
@@ -248,7 +250,6 @@ class ReceivePacket extends Thread{
         private List<Integer> serverNumbers;
         private DatagramPacket packetIn;
         private ArrayList<Client> clients;
-        public Map<String, Object> lastReceived;
 
         /**
          * Constructor of Worker
@@ -262,10 +263,6 @@ class ReceivePacket extends Thread{
             this.packetIn = packetIn;
             this.clients = clients;
         }
-
-		public Map<String, Object> getLastReceived() {
-			return lastReceived;
-		}
 
 		@Override
         public void run() {
@@ -288,6 +285,7 @@ class ReceivePacket extends Thread{
                 else{
                     for(Client c : clients){
                         if( c.getName().matches((String) data.get("username"))){
+							c.setLast(data);
                             c.print_on_client(data);
                         }
                     }
