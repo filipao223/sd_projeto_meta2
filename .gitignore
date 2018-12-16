@@ -2,8 +2,8 @@
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
 #Database
-database/sd.bd
-database/sd.bd-journal
+database/sd.db
+database/sd.db-journal
 
 # User-specific stuff
 .idea/**/workspace.xml
