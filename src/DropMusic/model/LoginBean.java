@@ -12,6 +12,9 @@ import com.github.scribejava.core.oauth.OAuthService;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.opensymphony.xwork2.ActionContext;
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 
@@ -180,6 +183,7 @@ public class LoginBean implements ServletResponseAware, ServletRequestAware {
         Scanner in = new Scanner(System.in);
 
         //Check if there is a cookie
+        this.setServletRequest((HttpServletRequest) ActionContext.getContext().get(ServletActionContext.HTTP_REQUEST));
         for(Cookie c : servletRequest.getCookies()) {
             if (c.getName().equals("token"))
                 //Expire the cookie
@@ -221,6 +225,7 @@ public class LoginBean implements ServletResponseAware, ServletRequestAware {
             System.out.println("Define API_USER_SECRET: " + accessToken.getSecret());
 
             //Save in cookies
+            this.setServletResponse((HttpServletResponse) ActionContext.getContext().get(ServletActionContext.HTTP_RESPONSE));
             Cookie token = new Cookie("token", accessToken.getToken());
             token.setMaxAge(60*60*24); // Make the cookie last a day
             servletResponse.addCookie(token);
