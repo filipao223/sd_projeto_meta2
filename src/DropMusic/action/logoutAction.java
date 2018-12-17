@@ -39,7 +39,6 @@ public class logoutAction extends ActionSupport implements SessionAware {
         if(checkUsername().matches("FAILED")) {
             return "FAILED";
         }
-        this.getlogoutBean().setPassword((String) this.session.get("password"));
         this.getlogoutBean().setUsername((String) this.session.get("username"));
         String resposta = this.getlogoutBean().logout();
         return resposta;

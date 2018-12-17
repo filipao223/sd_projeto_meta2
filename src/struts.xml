@@ -215,9 +215,9 @@
             <result name="FAILED">/fail.jsp</result>
         </action>
 
-        <action name="usernameDropbox">
+        <action name="usernameDropbox" class ="DropMusic.action.usernameDropboxAction" method="usernameDropbox">
             <result name="SUCCESS">/menuOp.jsp</result>
-            <result name="FAILED">/fail.jsp</result>
+            <result name="FAILED">/index.jsp</result>
         </action>
 
         <action name="associarFicheiros">

@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class logoutBean {
-    private String username,password;
+    private String username;
     private Server h;
     private Map<String, Object> session;
 
@@ -22,7 +22,6 @@ public class logoutBean {
             HashMap<String, Object> data = new HashMap<>();
             data.put("feature", "14");
             data.put("username", this.username);
-            data.put("password", this.password);
             h.receive(data);
 
             return "SUCCESS";
@@ -39,6 +38,4 @@ public class logoutBean {
     public void setUsername(String username) {
         this.username = username;
     }
-
-    public void setPassword(String password) {this.password = password;}
 }
