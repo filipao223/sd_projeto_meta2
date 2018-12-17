@@ -629,6 +629,10 @@ public class RMIClient extends UnicastRemoteObject implements Client {
             System.out.println("Critique?: ");
             readKeyboard = keyboardScanner.nextLine();
             data.put("text", readKeyboard);
+
+            System.out.println("Rating value? From 1 to 5: ");
+            readKeyboard = keyboardScanner.nextLine();
+            data.put("rating", readKeyboard);
         }
         return data;
     }
