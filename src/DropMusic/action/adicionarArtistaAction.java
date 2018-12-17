@@ -16,7 +16,7 @@ public class adicionarArtistaAction extends ActionSupport implements SessionAwar
      * Adiciona o bean à sessão já existente se este não existir
      * @return O bean usado para adicinar um artista
      */
-    public adicionarArtistaBean getaddArtistaBean() {
+    public adicionarArtistaBean getadicionarArtistaBean() {
         if(!session.containsKey("addArtista"))
             this.session.put("addArtista", new adicionarArtistaBean());
         return (adicionarArtistaBean) session.get("addArtista");
@@ -45,9 +45,9 @@ public class adicionarArtistaAction extends ActionSupport implements SessionAwar
         if(checkUsername().matches("FAILED")) {
             return "FAILED";
         }
-        this.getaddArtistaBean().setNome(nome);
-        this.getaddArtistaBean().setUsername((String) this.session.get("username"));
-        String resultado = this.getaddArtistaBean().addArtista();
+        this.getadicionarArtistaBean().setNome(nome);
+        this.getadicionarArtistaBean().setUsername((String) this.session.get("username"));
+        String resultado = this.getadicionarArtistaBean().addArtista();
         return resultado;
     }
 

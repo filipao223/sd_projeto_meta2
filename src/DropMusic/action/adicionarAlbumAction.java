@@ -21,7 +21,7 @@ public class adicionarAlbumAction extends ActionSupport implements SessionAware 
      * Adiciona o bean à sessão já existente se este não existir
      * @return O bean usado para adicinar um album
      */
-    public adicionarAlbumBean getaddAlbumBean() {
+    public adicionarAlbumBean getadicionarAlbumBean() {
         if(!session.containsKey("addAlbum"))
             this.session.put("addAlbum", new adicionarAlbumBean());
         return (adicionarAlbumBean) session.get("addAlbum");
@@ -49,9 +49,9 @@ public class adicionarAlbumAction extends ActionSupport implements SessionAware 
         if(checkUsername().matches("FAILED")) {
             return "FAILED";
         }
-        this.getaddAlbumBean().setNome(nome);
-        this.getaddAlbumBean().setUsername((String) this.session.get("username"));
-        String resultado = this.getaddAlbumBean().addAlbum();
+        this.getadicionarAlbumBean().setNome(nome);
+        this.getadicionarAlbumBean().setUsername((String) this.session.get("username"));
+        String resultado = this.getadicionarAlbumBean().addAlbum();
         return resultado;
     }
 

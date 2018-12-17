@@ -19,8 +19,8 @@
             <result>/menu.jsp</result>
         </action>
 
-        <action name="inicial">
-            <result>/inicial.jsp</result>
+        <action name="index">
+            <result>/index.jsp</result>
         </action>
 
         <action name="pesquisar">
@@ -56,17 +56,17 @@
 
         <action name="login" class="DropMusic.action.loginAction" method="login">
             <result name="SUCCESS">/menu.jsp</result>
-            <result name="FAILED">/inicial.jsp</result>
+            <result name="FAILED">/index.jsp</result>
         </action>
 
         <action name="logout" class="DropMusic.action.logoutAction" method="logout">
-            <result name="SUCCESS">/inicial.jsp</result>
+            <result name="SUCCESS">/index.jsp</result>
             <result name="FAILED">/fail.jsp</result>
         </action>
 
         <action name="registar" class="DropMusic.action.loginAction" method="registar">
-            <result name="SUCCESS">/inicial.jsp</result>
-            <result name="FAILED">/inicial.jsp</result>
+            <result name="SUCCESS">/index.jsp</result>
+            <result name="FAILED">/index.jsp</result>
         </action>
 
         <action name="gerir">
@@ -216,7 +216,7 @@
 
         <action name="usernameDropbox" class ="DropMusic.action.usernameDropboxAction" method="usernameDropbox">
             <result name="SUCCESS">/menu.jsp</result>
-            <result name="FAILED">/inicial.jsp</result>
+            <result name="FAILED">/index.jsp</result>
         </action>
 
         <action name="associarFicheirosJsp">

@@ -17,7 +17,7 @@ public class adicionarMusicAction extends ActionSupport implements SessionAware{
      * Adiciona o bean à sessão já existente se este não existir
      * @return O bean usado para adicinar uma musica
      */
-    public adicionarMusicaBean getaddMusicaBean() {
+    public adicionarMusicaBean getadicionarMusicaBean() {
         if(!session.containsKey("addMusica"))
             this.session.put("addMusica", new adicionarMusicaBean());
         return (adicionarMusicaBean) session.get("addMusica");
@@ -45,9 +45,9 @@ public class adicionarMusicAction extends ActionSupport implements SessionAware{
         if(checkUsername().matches("FAILED")) {
             return "FAILED";
         }
-        this.getaddMusicaBean().setNome(nome);
-        this.getaddMusicaBean().setUsername((String) this.session.get("username"));
-        String resultado = this.getaddMusicaBean().addMusica();
+        this.getadicionarMusicaBean().setNome(nome);
+        this.getadicionarMusicaBean().setUsername((String) this.session.get("username"));
+        String resultado = this.getadicionarMusicaBean().addMusica();
         return resultado;
     }
 
