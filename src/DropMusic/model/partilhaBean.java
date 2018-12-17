@@ -16,50 +16,15 @@ public class partilhaBean {
     private Server h;
     private Map<String, Object> session;
 
-    public String procura() {
-        long time = System.currentTimeMillis();
-        while (System.currentTimeMillis() < time + 30000) { //tem de se tentar conectar durante 30 segundos
-            try {
-                h = (Server) LocateRegistry.getRegistry(1099).lookup("MainServer"); //procura server para conectar
-
-                HashMap<String, Object> data = new HashMap<>();
-                RMIClient c = new RMIClient();
-                c.setName(this.username);
-                h.subscribe(this.username, c);
-                data.put("feature", "11");
-                data.put("username", this.username);
-                data.put("target", this.target);
-                h.receive(data);
-
-                h.remove(this.username, c);
-
-                try{
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-                System.out.println("Ultimo packote " + c.getLast());
-
-                if(c.getLast().get("answer").equals("Music shared")){
-                    return "SUCCESS";
-                }
-
-                return "FAILED";
-
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            } catch (NotBoundException e) {
-                e.printStackTrace();
-            }
-            if(System.currentTimeMillis() >= time + 30000){ //no fim dos 30 segundos a coneção não é possível
-                System.out.println("Não existe coneção");
-                break;
-            }
-        }
-        return "FAILED";
-    }
-
+    /**
+     * Cria um hashmap e um cliente, para o servidor, depois de criados, coloca as informações que recebe da action para o pacote e envia para
+     * o servidor.
+     * Depois disto remove o cliente do servidor(para que não receba mensagens repetidas)
+     * Usa-mos um thread sleep, porque devido a usar multithreading no RMI server, o cliente não iria receber a resposta deste rapidamente
+     * suficientemente rapido resultando num erro
+     * Após isto verificamos se a resposta é a de sucesso e retornamos a resposta para a action
+     * @return Failed ou Success
+     */
     public String partilha(){
         try {
             Server h = (Server) LocateRegistry.getRegistry(1099).lookup("MainServer"); //procura server para conectar
@@ -72,7 +37,7 @@ public class partilhaBean {
 
             return "SUCCESS";
         } catch (NotBoundException e) {
-            procura();
+            return "FAILED";
         } catch (AccessException e) {
             e.printStackTrace();
         } catch (RemoteException e) {

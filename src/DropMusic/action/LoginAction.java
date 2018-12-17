@@ -1,23 +1,15 @@
 package DropMusic.action;
 import DropMusicRMI_M.RMIClient;
-import DropMusicRMI_M.RMIServer;
-import DropMusicRMI_M.Server;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.interceptor.SessionAware;
 
-import java.rmi.AccessException;
-import java.rmi.ConnectException;
-import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 import DropMusic.model.*;
 
 
-public class LoginAction extends ActionSupport implements SessionAware {
+public class loginAction extends ActionSupport implements SessionAware {
     private static final long serialVersionUID = 4L;
     private Map<String, Object> session;
     private String username = null, password = null, usernameRegisto = null,passwordRegisto = null;
@@ -64,10 +56,10 @@ public class LoginAction extends ActionSupport implements SessionAware {
      * Adiciona o bean à sessão já existente se este não existir
      * @return O bean usado para login
      */
-    public LoginBean getLoginBean() {
+    public loginBean getLoginBean() {
         if(!session.containsKey("loginBean"))
-            this.session.put("loginBean", new LoginBean());
-        return (LoginBean) session.get("loginBean");
+            this.session.put("loginBean", new loginBean());
+        return (loginBean) session.get("loginBean");
     }
 
     public void createClient(){

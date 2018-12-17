@@ -10,35 +10,34 @@ import java.rmi.registry.LocateRegistry;
 import java.util.HashMap;
 import java.util.Map;
 
-public class removeArtistaBean {
+@SuppressWarnings("Duplicates")
+
+public class usernameDropboxBean {
     private Server h;
     private String username,nome;
     private Map<String, Object> session;
-
 
     /**
      * Cria um hashmap e um cliente, para o servidor, depois de criados, coloca as informações que recebe da action para o pacote e envia para
      * o servidor.
      * Depois disto remove o cliente do servidor(para que não receba mensagens repetidas)
      * Usa-mos um thread sleep, porque devido a usar multithreading no RMI server, o cliente não iria receber a resposta deste rapidamente
-     * suficientemente rapido resultando num erro
-     * Após isto verificamos se a resposta é a de sucesso e retornamos a resposta para a action
-     * @return Failed ou Success
+     * suficiente
+     * @return
      */
-    public String removeArtista() {
+    public String usernameDropbox() {
         try {
             Server h = (Server) LocateRegistry.getRegistry(1099).lookup("MainServer"); //procura server para conectar
             //h.subscribe(this.session.get("username"), this.session.get("client"));
             HashMap<String, Object> data = new HashMap<>();
             RMIClient c = new RMIClient();
-            c.setName(this.username);
-            h.subscribe(this.username, c);
-            data.put("feature", "2");
-            data.put("username", this.username);
-            data.put("action", "35_".concat(this.nome));
+            c.setName(this.nome);
+            h.subscribe(this.nome, c);
+            data.put("feature", "53");
+            data.put("username", this.nome);
             h.receive(data);
 
-            h.remove(this.username, c);
+            h.remove(this.nome, c);
 
             try{
                 Thread.sleep(2000);
@@ -48,7 +47,7 @@ public class removeArtistaBean {
 
             System.out.println("Ultimo packote " + c.getLast());
 
-            if(c.getLast().get("answer").equals("Item removed")){
+            if(c.getLast().get("answer").equals("User found")){
                 return "SUCCESS";
             }
 

@@ -1,25 +1,38 @@
 package DropMusic.action;
 
-import DropMusic.model.removeAlbumBean;
+import DropMusic.model.usernameDropboxBean;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.interceptor.SessionAware;
 
 import java.util.Map;
 
-public class removeAlbumAction extends ActionSupport implements SessionAware {
+@SuppressWarnings("Duplicates")
+
+/**
+ * Classe responsável por adicionar um album à database
+ */
+public class usernameDropboxAction extends ActionSupport implements SessionAware {
 
     private static final long serialVersionUID = 4L;
     private Map<String, Object> session;
     public String nome;
 
+    public void createUsername(){
+        if(!session.containsKey("username"))
+            this.session.put("username",nome);
+        else if(session.containsKey("username")){
+            this.session.replace("username",nome);
+        }
+    }
+
     /**
      * Adiciona o bean à sessão já existente se este não existir
-     * @return O bean usado para remover um album
+     * @return O bean usado para adicinar realizar login com a dropbox
      */
-    public removeAlbumBean getremoveAlbumBean() {
-        if(!session.containsKey("removeAlbum"))
-            this.session.put("removeAlbum", new removeAlbumBean());
-        return (removeAlbumBean) session.get("removeAlbum");
+    public usernameDropboxBean getusernameDropboxBean() {
+        if(!session.containsKey("usernameDropbox"))
+            this.session.put("usernameDropbox", new usernameDropboxBean());
+        return (usernameDropboxBean) session.get("usernameDropbox");
     }
 
     /**
@@ -37,16 +50,13 @@ public class removeAlbumAction extends ActionSupport implements SessionAware {
      * o resultado
      * @return Failed se a operação não tiver sucesso, ou success caso contrário
      */
-    public String removeAlbum(){
+    public String usernameDropbox() {
         if(nome.isEmpty()){
             return "FAILED";
         }
-        if(checkUsername().matches("FAILED")) {
-            return "FAILED";
-        }
-        this.getremoveAlbumBean().setNome(nome);
-        this.getremoveAlbumBean().setUsername((String) this.session.get("username"));
-        String resultado = this.getremoveAlbumBean().removeAlbum();
+        this.getusernameDropboxBean().setNome(nome);
+        String resultado = this.getusernameDropboxBean().usernameDropbox();
+        createUsername();
         return resultado;
     }
 
@@ -62,4 +72,5 @@ public class removeAlbumAction extends ActionSupport implements SessionAware {
     public void setSession(Map<String, Object> session) {
         this.session = session;
     }
+
 }

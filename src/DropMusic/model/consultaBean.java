@@ -42,60 +42,15 @@ public class consultaBean {
 
     private Map<String, Object> session;
 
-    public String procuraAlbum() {
-        long time = System.currentTimeMillis();
-        while (System.currentTimeMillis() < time + 30000) { //tem de se tentar conectar durante 30 segundos
-            try {
-                h = (Server) LocateRegistry.getRegistry(1099).lookup("MainServer"); //procura server para conectar
-
-                HashMap<String, Object> data = new HashMap<>();
-                data.put("feature", "60");
-                data.put("username", this.username);
-                data.put("album", this.nomeAlbum);
-                h.receive(data);
-
-                return "SUCCESS";
-
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            } catch (NotBoundException e) {
-                e.printStackTrace();
-            }
-            if(System.currentTimeMillis() >= time + 30000){ //no fim dos 30 segundos a coneção não é possível
-                System.out.println("Não existe coneção");
-                break;
-            }
-        }
-        return "FAILED";
-    }
-
-    public String procuraArtista() {
-        long time = System.currentTimeMillis();
-        while (System.currentTimeMillis() < time + 30000) { //tem de se tentar conectar durante 30 segundos
-            try {
-                h = (Server) LocateRegistry.getRegistry(1099).lookup("MainServer"); //procura server para conectar
-
-                HashMap<String, Object> data = new HashMap<>();
-                data.put("feature", "61");
-                data.put("username", this.username);
-                data.put("artist", this.nomeArtista);
-                h.receive(data);
-
-                return "SUCCESS";
-
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            } catch (NotBoundException e) {
-                e.printStackTrace();
-            }
-            if(System.currentTimeMillis() >= time + 30000){ //no fim dos 30 segundos a coneção não é possível
-                System.out.println("Não existe coneção");
-                break;
-            }
-        }
-        return "FAILED";
-    }
-
+    /**
+     * Cria um hashmap e um cliente, para o servidor, depois de criados, coloca as informações que recebe da action para o pacote e envia para
+     * o servidor.
+     * Depois disto remove o cliente do servidor(para que não receba mensagens repetidas)
+     * Usa-mos um thread sleep, porque devido a usar multithreading no RMI server, o cliente não iria receber a resposta deste rapidamente
+     * suficientemente rapido resultando num erro
+     * Após isto verificamos se a resposta é a de sucesso e retornamos a resposta para a action
+     * @return Failed ou Success
+     */
     public String consultaArtista() {
         try {
             Server h = (Server) LocateRegistry.getRegistry(1099).lookup("MainServer"); //procura server para conectar
@@ -125,7 +80,7 @@ public class consultaBean {
             }
             return "FAILED";
         } catch (NotBoundException e) {
-            procuraArtista();
+            return "FAILED";
         } catch (AccessException e) {
             e.printStackTrace();
         } catch (RemoteException e) {
@@ -134,6 +89,15 @@ public class consultaBean {
         return "FAILED";
     }
 
+    /**
+     * Cria um hashmap e um cliente, para o servidor, depois de criados, coloca as informações que recebe da action para o pacote e envia para
+     * o servidor.
+     * Depois disto remove o cliente do servidor(para que não receba mensagens repetidas)
+     * Usa-mos um thread sleep, porque devido a usar multithreading no RMI server, o cliente não iria receber a resposta deste rapidamente
+     * suficientemente rapido resultando num erro
+     * Após isto verificamos se a resposta é a de sucesso e retornamos a resposta para a action
+     * @return Failed ou Success
+     */
     public String consultaAlbum() {
         try {
             Server h = (Server) LocateRegistry.getRegistry(1099).lookup("MainServer"); //procura server para conectar
@@ -165,7 +129,7 @@ public class consultaBean {
 
             return "FAILED";
         } catch (NotBoundException e) {
-            procuraAlbum();
+            return "FAILED";
         } catch (AccessException e) {
             e.printStackTrace();
         } catch (RemoteException e) {
