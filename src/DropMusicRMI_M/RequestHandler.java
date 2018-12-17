@@ -545,6 +545,7 @@ public class RequestHandler implements Runnable {
                         }
                         sendCallback(user, "Music not shared", null, code);
                         break;
+            //----------------------------------------------------------------------------------------------------------------------------------------------------
                     case Request.ADD_TOKEN:
                         user = (String) data.get("username");
                         //Put the token in database
@@ -558,12 +559,72 @@ public class RequestHandler implements Runnable {
                             sendCallback(user, "Error", null, code);
                         }
                         break;
+            //-------------------------------------------------------------------------------------------------------------------------------------
+                    case Request.CRITIQUE:
+                        user = (String) data.get("username");
+                        String album = (String) data.get("album");
+                        String text = (String) data.get("text");
+                        //Check if user is online
+                        try{
+                            rc = checkLoginState(user);
+
+                            if (rc==NO_USER_FOUND) sendCallback(user, "User not found", null, code);
+                            else if (rc==NO_LOGIN) sendCallback(user, "User not logged in", null, code);
+                            else{
+                                //Make critique
+                                rc = critique(user, album, text);
+                                if(rc==-1) sendCallback(user, "Error publishing critique", null, code);
+                                else{
+                                    sendCallback(user, "Published critique", null, code);
+                                }
+                            }
+                        } catch (Exception e){
+                            e.printStackTrace();
+                        }
+                        break;
                 }
             }
         } catch (Exception e){
             System.out.println("Server aborted packet processing unexpectedly");
             if (e instanceof SocketTimeoutException) System.out.println("Response from storage sucess timed out");
         }
+    }
+
+    private int critique(String user, String album, String text){
+        //First check if album exists
+        try{
+            int rc = checkIfAlbumExists(album);
+            if (rc>0){
+                //Get current critiques
+                String sql = "SELECT reviews FROM albums WHERE name=\"" + album + "\";";
+                databaseAccess(user, sql, true, "reviews", Request.RETRIEVE_REVIEWS);
+                String results = (String) databaseReply(user, Request.RETRIEVE_REVIEWS);
+                String total = "";
+                if (results != null){
+
+                    String[] tokens = results.split("_"); //Format: 1_id_245
+                    if(tokens.length >= 2){ //Format: 1_id_245
+                        for (int i=1; i<tokens.length; i+=2){
+                            total = total.concat(tokens[i+1]);
+                        }
+                        //Add new one
+                        total = total.concat(" | " + text);
+                    }
+                    else{
+                        //No reviews yet
+                        total = text;
+                    }
+
+                    //Add back to database
+                    sql = "UPDATE albums SET reviews=\"" + total + "\" WHERE name=\"" + album + "\";";
+                    databaseAccess(user, sql, false, "", Request.ADD_REVIEWS);
+                    return 1;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 
     /**
@@ -1278,8 +1339,8 @@ public class RequestHandler implements Runnable {
     private int checkIfAlbumExists(String album) {
         try{
             String sql = "SELECT id FROM Albums WHERE name=\"" + album + "\";";
-            databaseAccess(album, sql, true, "id", Request.CHECK_USER_EXISTS);
-            String results = (String) databaseReply(album, Request.CHECK_USER_EXISTS);
+            databaseAccess(album, sql, true, "id", Request.CHECK_ALBUM_EXISTS);
+            String results = (String) databaseReply(album, Request.CHECK_ALBUM_EXISTS);
             if (results != null){
                 String[] tokens = results.split("_"); //Format: 1_id_245
                 if(tokens.length < 2){ //Format: 1_id_245
