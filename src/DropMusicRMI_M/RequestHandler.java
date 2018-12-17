@@ -564,6 +564,7 @@ public class RequestHandler implements Runnable {
                         user = (String) data.get("username");
                         String album = (String) data.get("album");
                         String text = (String) data.get("text");
+                        String rating = (String) data.get("rating");
                         //Check if user is online
                         try{
                             rc = checkLoginState(user);
@@ -572,7 +573,7 @@ public class RequestHandler implements Runnable {
                             else if (rc==NO_LOGIN) sendCallback(user, "User not logged in", null, code);
                             else{
                                 //Make critique
-                                rc = critique(user, album, text);
+                                rc = critique(user, album, rating, text);
                                 if(rc==-1) sendCallback(user, "Error publishing critique", null, code);
                                 else{
                                     sendCallback(user, "Published critique", null, code);
@@ -590,35 +591,58 @@ public class RequestHandler implements Runnable {
         }
     }
 
-    private int critique(String user, String album, String text){
+    private int critique(String user, String album, String rating, String text){
         //First check if album exists
         try{
             int rc = checkIfAlbumExists(album);
             if (rc>0){
                 //Get current critiques
+                int current_value;
+                int max_value;
                 String sql = "SELECT reviews FROM albums WHERE name=\"" + album + "\";";
                 databaseAccess(user, sql, true, "reviews", Request.RETRIEVE_REVIEWS);
                 String results = (String) databaseReply(user, Request.RETRIEVE_REVIEWS);
+                //Get current rating
+                sql = "SELECT current, max FROM albums WHERE name=\"" + album + "\";";
+                databaseAccess(user, sql, true, "current_max", Request.RETRIEVE_REVIEWS);
+                String values = (String) databaseReply(user, Request.RETRIEVE_REVIEWS);
                 String total = "";
-                if (results != null){
+                //Split current and max
+                if (values != null){
+                    String[] temp = values.split("_");
+                    String current_string = temp[2];
+                    String max_string = temp[4];
+                    if (current_string.matches("null")) current_value = 0;
+                    else current_value = Integer.parseInt(current_string);
+                    if (max_string.matches("null")) max_value = 0;
+                    else max_value = Integer.parseInt(max_string);
 
-                    String[] tokens = results.split("_"); //Format: 1_id_245
-                    if(tokens.length >= 2){ //Format: 1_id_245
-                        for (int i=1; i<tokens.length; i+=2){
-                            total = total.concat(tokens[i+1]);
+                    if (results != null){
+
+                        String[] tokens = results.split("_"); //Format: 1_id_245
+                        if(tokens.length >= 2){ //Format: 1_id_245
+                            for (int i=1; i<tokens.length; i+=2){
+                                total = total.concat(tokens[i+1]);
+                            }
+                            //Add new one
+                            total = total.concat(" | " + text);
                         }
-                        //Add new one
-                        total = total.concat(" | " + text);
-                    }
-                    else{
-                        //No reviews yet
-                        total = text;
-                    }
+                        else{
+                            //No reviews yet
+                            total = text;
+                        }
 
-                    //Add back to database
-                    sql = "UPDATE albums SET reviews=\"" + total + "\" WHERE name=\"" + album + "\";";
-                    databaseAccess(user, sql, false, "", Request.ADD_REVIEWS);
-                    return 1;
+                        //Add the rating to average
+                        current_value += Integer.parseInt(rating);
+                        max_value += 5;
+                        double new_rating = (float)(current_value*5) / (float)max_value;
+
+                        //Add back to database
+                        sql = "UPDATE albums SET reviews=\"" + total + "\", rating=" + new_rating + "" +
+                                ",current=" + current_value + ", max=" + max_value + " WHERE name=\"" + album + "\";";
+                        databaseAccess(user, sql, false, "", Request.ADD_REVIEWS);
+                        return 1;
+                    }
                 }
             }
         } catch (IOException e) {
