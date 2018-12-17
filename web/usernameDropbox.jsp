@@ -7,17 +7,13 @@
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>DropMusic</title>
     <div align = "left" />
-    <h2>Escrever critica</h2>
+    <h2>Username para a Dropbox</h2>
 </head>
 <body>
 <div align = "left">
-    <s:form action = "escreveCritica" method = "post">
-        <s:text name = "Nome do album" />
-        <s:textfield name = "target"></s:textfield>
-        <s:text name = "Critica" />
-        <s:textfield name = "critica"></s:textfield>
-        <s:text name = "Rating(1 a 5)" />
-        <s:textfield name = "rating"></s:textfield>
+    <s:form action = "usernameDropbox" method = "post">
+        <s:text name = "Nome de utilizador" />
+        <s:textfield name = "nome"></s:textfield>
         <p><s:submit /></p>
     </s:form>
 </div>

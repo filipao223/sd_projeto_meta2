@@ -32,18 +32,32 @@ public class consultaAction extends ActionSupport implements SessionAware {
         this.nomeArtista = nomeArtista;
     }
 
+    /**
+     * Adiciona o bean à sessão já existente se este não existir
+     * @return O bean usado para consultar uma musica
+     */
     public consultaBean getconsultaBean() {
         if(!session.containsKey("consulta"))
             this.session.put("consulta", new consultaBean());
         return (consultaBean) session.get("consulta");
     }
 
+    /**
+     * Verifica se a sessão já tem o username para que o utilizador não possa fazer ações sem ele
+     * @return Failed se a sessão não possuir username, success se possuir
+     */
     public String checkUsername(){
         if(!session.containsKey("username"))
             return "FAILED";
         return "SUCCESS";
     }
 
+    /**
+     * Função Responsável por retornar o resultado, esta função verifica qual caixa de texto está vazia, se estiveram todas retorna
+     * Failed, se não continua, existe um if para cada caixa de texto, porque o request irá mudar tendo em conta o que se quer, quando entra num
+     * if envia o necessário e usa o bean para retornar o resultado
+     * @return Failed se a operação não tiver sucesso, ou success caso contrário
+     */
     public String consulta() {
 
         String resultado = "FAILED";

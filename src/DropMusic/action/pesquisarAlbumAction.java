@@ -39,18 +39,32 @@ public class pesquisarAlbumAction extends ActionSupport implements SessionAware 
         this.nomeArtista = nomeArtista;
     }
 
+    /**
+     * Adiciona o bean à sessão já existente se este não existir
+     * @return O bean usado para pesquisar um album
+     */
     public pesquisarAlbumBean getpesquisarAlbumBean() {
         if(!session.containsKey("pesquisarAlbum"))
             this.session.put("pesquisarAlbum", new pesquisarAlbumBean());
         return (pesquisarAlbumBean) session.get("pesquisarAlbum");
     }
 
+    /**
+     * Verifica se a sessão já tem o username para que o utilizador não possa fazer ações sem ele
+     * @return Failed se a sessão não possuir username, success se possuir
+     */
     public String checkUsername(){
         if(!session.containsKey("username"))
             return "FAILED";
         return "SUCCESS";
     }
 
+    /**
+     * Função Responsável por retornar o resultado, esta função verifica se todas as caixas de texto estão vazias, se sim retorna automaticamente
+     * Failed, se não continua, existe um if para cada caixa de texto, porque o request irá mudar tendo em conta o que se quer, quando entra num
+     * if envia o necessário e usa o bean para retornar o resultado
+     * @return Failed se a operação não tiver sucesso, ou success caso contrário
+     */
     public String pesquisarAlbum() {
 
         String resultado = "FAILED";

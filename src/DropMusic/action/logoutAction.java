@@ -10,18 +10,31 @@ public class logoutAction extends ActionSupport implements SessionAware {
     private static final long serialVersionUID = 4L;
     private Map<String, Object> session;
 
+    /**
+     * Verifica se a sessão já tem o username para que o utilizador não possa fazer ações sem ele
+     * @return Failed se a sessão não possuir username, success se possuir
+     */
     public String checkUsername(){
         if(!session.containsKey("username"))
            return "FAILED";
         return "SUCCESS";
     }
 
+    /**
+     * Adiciona o bean à sessão já existente se este não existir
+     * @return O bean usado para logout
+     */
     public logoutBean getlogoutBean() {
         if(!session.containsKey("logout"))
             this.session.put("logout", new logoutBean());
         return (logoutBean) session.get("logout");
     }
 
+    /**
+     * Função Responsável por retornar o resultado, coloca o username e a password no bean, depois usa a função do bean para retornar
+     * o resultado
+     * @return Failed se a operação não tiver sucesso, ou success caso contrário
+     */
     public String logout(){
         if(checkUsername().matches("FAILED")) {
             return "FAILED";

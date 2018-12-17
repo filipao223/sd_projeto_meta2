@@ -16,18 +16,32 @@ public class alterarArtistaAction extends ActionSupport implements SessionAware 
     public String alterarNascimento;
     public String request;
 
+    /**
+     * Adiciona o bean à sessão já existente se este não existir
+     * @return O bean usado para alterar artista
+     */
     public alterarArtistaBean getalterarArtistaBean() {
         if(!session.containsKey("alterarArtista"))
             this.session.put("alterarArtista", new alterarArtistaBean());
         return (alterarArtistaBean) session.get("alterarArtista");
     }
 
+    /**
+     * Verifica se a sessão já tem o username para que o utilizador não possa fazer ações sem ele
+     * @return Failed se a sessão não possuir username, success se possuir
+     */
     public String checkUsername(){
         if(!session.containsKey("username"))
             return "FAILED";
         return "SUCCESS";
     }
 
+    /**
+     * Função Responsável por retornar o resultado, esta função verifica se todas as caixas de texto estão vazias, se sim retorna automaticamente
+     * Failed, se não continua, existe um if para cada caixa de texto, porque o request irá mudar tendo em conta o que se quer, quando entra num
+     * if envia o necessário e usa o bean para retornar o resultado
+     * @return Failed se a operação não tiver sucesso, ou success caso contrário
+     */
     public String alteraArtista(){
 
         String resposta = "FAILED";

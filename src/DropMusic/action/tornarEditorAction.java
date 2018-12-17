@@ -11,6 +11,11 @@ public class tornarEditorAction extends ActionSupport implements SessionAware {
 
     public String target;
 
+    /**
+     * Função Responsável por retornar o resultado, coloca o username target no bean, depois usa a função do bean para retornar
+     * o resultado
+     * @return Failed se a operação não tiver sucesso, ou success caso contrário
+     */
     public String tornarEditorAction(){
         if(target.isEmpty()){
             return "FAILED";
@@ -29,12 +34,20 @@ public class tornarEditorAction extends ActionSupport implements SessionAware {
         return target;
     }
 
+    /**
+     * Verifica se a sessão já tem o username para que o utilizador não possa fazer ações sem ele
+     * @return Failed se a sessão não possuir username, success se possuir
+     */
     public String checkUsername(){
         if(!session.containsKey("username"))
             return "FAILED";
         return "SUCCESS";
     }
 
+    /**
+     * Adiciona o bean à sessão já existente se este não existir
+     * @return O bean usado para tornar um user editor
+     */
     public tornarEditorBean gettornarEditorBean() {
         if(!session.containsKey("tornarEditor"))
             this.session.put("tornarEditor", new tornarEditorBean());

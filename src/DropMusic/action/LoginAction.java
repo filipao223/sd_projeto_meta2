@@ -38,6 +38,9 @@ public class LoginAction extends ActionSupport implements SessionAware {
         }
     }
 
+    /**
+     * Cria um username para adicionar à sessão, se ja contiver um, substitui(para não mandar respostas aos users errados)
+     */
     public void createUsername(){
         if(!session.containsKey("username"))
             this.session.put("username",username);
@@ -46,6 +49,9 @@ public class LoginAction extends ActionSupport implements SessionAware {
         }
     }
 
+    /**
+     * Cria uma password para adicionar à sessão, se ja contiver um, substitui(para não usar a password errada)
+     */
     public void createPassword(){
         if(!session.containsKey("password"))
             this.session.put("password",password);
@@ -54,6 +60,10 @@ public class LoginAction extends ActionSupport implements SessionAware {
         }
     }
 
+    /**
+     * Adiciona o bean à sessão já existente se este não existir
+     * @return O bean usado para login
+     */
     public LoginBean getLoginBean() {
         if(!session.containsKey("loginBean"))
             this.session.put("loginBean", new LoginBean());
@@ -71,6 +81,12 @@ public class LoginAction extends ActionSupport implements SessionAware {
         }
     }
 
+
+    /**
+     * Função Responsável por retornar o resultado, coloca o username e a password na sessão, para que se possam utilizar nas outras operações
+     * depois disto colocam-no no bean, para que este possa retornar o resultado
+     * @return Failed se a operação não tiver sucesso, ou success caso contrário
+     */
     public String login() throws RemoteException {
         if(!username.isEmpty() && !password.isEmpty()){
             createClient();
@@ -86,6 +102,11 @@ public class LoginAction extends ActionSupport implements SessionAware {
         }
     }
 
+    /**
+     * Função Responsável por retornar o resultado, coloca o username e a password na sessão, para que se possam utilizar nas outras operações
+     * depois disto colocam-no no bean, para que este possa retornar o resultado
+     * @return Failed se a operação não tiver sucesso, ou success caso contrário
+     */
     public String registar() throws RemoteException{
         if(!usernameRegisto.isEmpty() && !passwordRegisto.isEmpty()){
             createClient();

@@ -121,10 +121,8 @@ public class consultaBean {
 
             if(c.getLast().get("answer").equals("Results found")){
                 setInfo((String) c.getLast().get("optional"));
-                h.remove(this.username, c);
                 return "SUCCESS";
             }
-            h.remove(this.username, c);
             return "FAILED";
         } catch (NotBoundException e) {
             procuraArtista();

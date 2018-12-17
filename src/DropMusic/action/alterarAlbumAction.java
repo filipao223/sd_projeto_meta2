@@ -17,18 +17,32 @@ public class alterarAlbumAction extends ActionSupport implements SessionAware {
     public String alterarDescricao;
     public String request;
 
+    /**
+     * Adiciona o bean à sessão já existente se este não existir
+     * @return O bean usado para alterar um album
+     */
     public alterarAlbumBean getalterarAlbumBean() {
         if(!session.containsKey("alterarAlbum"))
             this.session.put("alterarAlbum", new alterarAlbumBean());
         return (alterarAlbumBean) session.get("alterarAlbum");
     }
 
+    /**
+     * Verifica se a sessão já tem o username para que o utilizador não possa fazer ações sem ele
+     * @return Failed se a sessão não possuir username, success se possuir
+     */
     public String checkUsername(){
         if(!session.containsKey("username"))
             return "FAILED";
         return "SUCCESS";
     }
 
+    /**
+     * Função Responsável por retornar o resultado, esta função verifica se todas as caixas de texto estão vazias, se sim retorna automaticamente
+     * Failed, se não continua, existe um if para cada caixa de texto, porque o request irá mudar tendo em conta o que se quer, quando entra num
+     * if envia o necessário e usa o bean para retornar o resultado
+     * @return Failed se a operação não tiver sucesso, ou success caso contrário
+     */
     public String alteraAlbum(){
 
         String resposta = "FAILED";

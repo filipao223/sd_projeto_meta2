@@ -13,18 +13,31 @@ public class removeArtistaAction extends ActionSupport implements SessionAware {
     private Map<String, Object> session;
     public String nome;
 
+    /**
+     * Adiciona o bean à sessão já existente se este não existir
+     * @return O bean usado para remover um artista
+     */
     public removeArtistaBean getremoveArtistaBean() {
         if(!session.containsKey("removeArtista"))
             this.session.put("removeArtista", new removeArtistaBean());
         return (removeArtistaBean) session.get("removeArtista");
     }
 
+    /**
+     * Verifica se a sessão já tem o username para que o utilizador não possa fazer ações sem ele
+     * @return Failed se a sessão não possuir username, success se possuir
+     */
     public String checkUsername(){
         if(!session.containsKey("username"))
             return "FAILED";
         return "SUCCESS";
     }
 
+    /**
+     * Função Responsável por retornar o resultado, coloca o username e o nome do artista no bean, depois usa a função do bean para retornar
+     * o resultado
+     * @return Failed se a operação não tiver sucesso, ou success caso contrário
+     */
     public String removeArtista(){
         if(nome.isEmpty()){
             return "FAILED";
