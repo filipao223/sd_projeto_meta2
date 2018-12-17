@@ -81,4 +81,7 @@ public class Request {
     protected static final int ADD_SHARE_USERS   = 68; //internal
     protected static final int CHECK_UPLOADER    = 69;
     protected static final int ADD_TOKEN         = 71; //Adds an access token to this user
+    protected static final int CHECK_ALBUM_EXISTS= 72;
+    protected static final int RETRIEVE_REVIEWS  = 73;
+    protected static final int ADD_REVIEWS       = 74;
 }
