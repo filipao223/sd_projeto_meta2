@@ -46,72 +46,15 @@ public class LoginBean implements ServletResponseAware, ServletRequestAware {
     private String url;
     private String code;
 
-    public LoginBean() {
-    }
-
-    public String procuraLogin() {
-        long time = System.currentTimeMillis();
-        while (System.currentTimeMillis() < time + 30000) { //tem de se tentar conectar durante 30 segundos
-            try {
-                h = (Server) LocateRegistry.getRegistry(1099).lookup("MainServer"); //procura server para conectar
-
-                HashMap<String, Object> data = new HashMap<>();
-                RMIClient c = new RMIClient();
-                h.subscribe(this.username, c);
-
-                data.put("feature", "1");
-                data.put("username", this.username);
-                data.put("password", this.password);
-                h.receive(data);
-
-                System.out.println(c.getLast());
-
-                return "SUCCESS";
-
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            } catch (NotBoundException e) {
-                e.printStackTrace();
-            }
-            if(System.currentTimeMillis() >= time + 30000){ //no fim dos 30 segundos a coneção não é possível
-                System.out.println("Não existe coneção");
-                break;
-            }
-        }
-        return "FAILED";
-    }
-
-    public String procuraRegisto() {
-        long time = System.currentTimeMillis();
-        while (System.currentTimeMillis() < time + 30000) { //tem de se tentar conectar durante 30 segundos
-            try {
-                h = (Server) LocateRegistry.getRegistry(1099).lookup("MainServer"); //procura server para conectar
-
-                HashMap<String, Object> data = new HashMap<>();
-                RMIClient c = new RMIClient();
-                h.subscribe(this.username, c);
-                data.put("feature", "29");
-                data.put("username", this.username);
-                data.put("password", this.password);
-                h.receive(data);
-
-                System.out.println(c.getLast());
-
-                return "SUCCESS";
-
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            } catch (NotBoundException e) {
-                e.printStackTrace();
-            }
-            if(System.currentTimeMillis() >= time + 30000){ //no fim dos 30 segundos a coneção não é possível
-                System.out.println("Não existe coneção");
-                break;
-            }
-        }
-        return "FAILED";
-    }
-
+    /**
+     * Cria um hashmap e um cliente, para o servidor, depois de criados, coloca as informações que recebe da action para o pacote e envia para
+     * o servidor.
+     * Depois disto remove o cliente do servidor(para que não receba mensagens repetidas)
+     * Usa-mos um thread sleep, porque devido a usar multithreading no RMI server, o cliente não iria receber a resposta deste rapidamente
+     * suficientemente rapido resultando num erro
+     * Após isto verificamos se a resposta é a de sucesso e retornamos a resposta para a action
+     * @return Failed ou Success
+     */
     public String login() throws RemoteException {
         try {
             Server h = (Server) LocateRegistry.getRegistry(1099).lookup("MainServer"); //procura server para conectar
@@ -142,11 +85,19 @@ public class LoginBean implements ServletResponseAware, ServletRequestAware {
 
             return "FAILED";
         } catch (NotBoundException e) {
-            procuraLogin();
+            return "FAILED";
         }
-        return "FAILED";
     }
 
+    /**
+     * Cria um hashmap e um cliente, para o servidor, depois de criados, coloca as informações que recebe da action para o pacote e envia para
+     * o servidor.
+     * Depois disto remove o cliente do servidor(para que não receba mensagens repetidas)
+     * Usa-mos um thread sleep, porque devido a usar multithreading no RMI server, o cliente não iria receber a resposta deste rapidamente
+     * suficientemente rapido resultando num erro
+     * Após isto verificamos se a resposta é a de sucesso e retornamos a resposta para a action
+     * @return Failed ou Success
+     */
     public String registo() throws RemoteException{
         try {
             Server h = (Server) LocateRegistry.getRegistry(1099).lookup("MainServer"); //procura server para conectar
@@ -174,7 +125,7 @@ public class LoginBean implements ServletResponseAware, ServletRequestAware {
             }
 
         } catch (NotBoundException e) {
-            procuraRegisto();
+            return "FAILED";
         }
         return "FAILED";
     }

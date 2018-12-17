@@ -55,9 +55,6 @@ public class usernameDropboxAction extends ActionSupport implements SessionAware
         if(nome.isEmpty()){
             return "FAILED";
         }
-        if(checkUsername().matches("FAILED")) {
-            return "FAILED";
-        }
         this.getusernameDropboxBean().setNome(nome);
         String resultado = this.getusernameDropboxBean().usernameDropbox();
         createUsername();

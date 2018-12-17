@@ -15,6 +15,15 @@ public class logoutBean {
     private Server h;
     private Map<String, Object> session;
 
+    /**
+     * Cria um hashmap e um cliente, para o servidor, depois de criados, coloca as informações que recebe da action para o pacote e envia para
+     * o servidor.
+     * Depois disto remove o cliente do servidor(para que não receba mensagens repetidas)
+     * Usa-mos um thread sleep, porque devido a usar multithreading no RMI server, o cliente não iria receber a resposta deste rapidamente
+     * suficientemente rapido resultando num erro
+     * Após isto verificamos se a resposta é a de sucesso e retornamos a resposta para a action
+     * @return Failed ou Success
+     */
     public String logout(){
         try {
             Server h = (Server) LocateRegistry.getRegistry(1099).lookup("MainServer"); //procura server para conectar
@@ -26,7 +35,7 @@ public class logoutBean {
 
             return "SUCCESS";
         } catch (NotBoundException e) {
-            e.printStackTrace();
+            return "FAILED";
         } catch (AccessException e) {
             e.printStackTrace();
         } catch (RemoteException e) {
