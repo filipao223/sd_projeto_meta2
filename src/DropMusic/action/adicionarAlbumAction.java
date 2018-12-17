@@ -1,7 +1,6 @@
 package DropMusic.action;
 
-import DropMusic.model.addAlbumBean;
-import DropMusic.model.addMusicaBean;
+import DropMusic.model.adicionarAlbumBean;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.interceptor.SessionAware;
 
@@ -12,7 +11,7 @@ import java.util.Map;
 /**
  * Classe responsável por adicionar um album à database
  */
-public class addAlbumAction extends ActionSupport implements SessionAware {
+public class adicionarAlbumAction extends ActionSupport implements SessionAware {
 
     private static final long serialVersionUID = 4L;
     private Map<String, Object> session;
@@ -22,10 +21,10 @@ public class addAlbumAction extends ActionSupport implements SessionAware {
      * Adiciona o bean à sessão já existente se este não existir
      * @return O bean usado para adicinar um album
      */
-    public addAlbumBean getaddAlbumBean() {
+    public adicionarAlbumBean getaddAlbumBean() {
         if(!session.containsKey("addAlbum"))
-            this.session.put("addAlbum", new addAlbumBean());
-        return (addAlbumBean) session.get("addAlbum");
+            this.session.put("addAlbum", new adicionarAlbumBean());
+        return (adicionarAlbumBean) session.get("addAlbum");
     }
 
     /**

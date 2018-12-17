@@ -15,7 +15,7 @@ import java.util.Map;
 
 @SuppressWarnings("Duplicates")
 
-public class addMusicaBean {
+public class adicionarAlbumBean {
     private Server h;
     private String username,nome;
     private Map<String, Object> session;
@@ -30,7 +30,7 @@ public class addMusicaBean {
      * Após isto verificamos se a resposta é a de sucesso e retornamos a resposta para a action
      * @return Failed ou Success
      */
-    public String addMusica() {
+    public String addAlbum() {
         try {
             Server h = (Server) LocateRegistry.getRegistry(1099).lookup("MainServer"); //procura server para conectar
             //h.subscribe(this.session.get("username"), this.session.get("client"));
@@ -40,7 +40,7 @@ public class addMusicaBean {
             h.subscribe(this.username, c);
             data.put("feature", "2");
             data.put("username", this.username);
-            data.put("action", "34_".concat(this.nome));
+            data.put("action", "33_".concat(this.nome));
             h.receive(data);
 
             h.remove(this.username, c);

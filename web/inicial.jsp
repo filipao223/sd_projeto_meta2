@@ -12,15 +12,6 @@
 </head>
 <body>
 <div align = "left">
-    <h2>Login</h2>
-    <s:form action = "login" method = "post">
-        <s:text name = "Username" />
-        <s:textfield name = "username" label = "Username" />
-        <s:text name = "Password" />
-        <s:password name = "password" label = "Password" />
-        <p><s:submit value = "Login"/></p>
-    </s:form>
-
     <h2>Registar</h2>
     <s:form action = "registar" method = "post">
         <s:text name = "Username" />
@@ -28,6 +19,14 @@
         <s:text name = "Password" />
         <s:password name = "passwordRegisto" label = "Password" />
         <p><s:submit value = "Registar"/></p>
+    </s:form>
+    <h2>Login</h2>
+    <s:form action = "login" method = "post">
+        <s:text name = "Username" />
+        <s:textfield name = "username" label = "Username" />
+        <s:text name = "Password" />
+        <s:password name = "password" label = "Password" />
+        <p><s:submit value = "Login"/></p>
     </s:form>
     <h2>Login com Dropbox</h2>
     <s:form action="connectDropboxLogin" method="post">

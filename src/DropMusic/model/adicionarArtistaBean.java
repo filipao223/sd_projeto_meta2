@@ -14,7 +14,7 @@ import java.util.Map;
 
 @SuppressWarnings("Duplicates")
 
-public class addArtistaBean {
+public class adicionarArtistaBean {
     private Server h;
     private String username,nome;
     private Map<String, Object> session;

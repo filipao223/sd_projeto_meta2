@@ -32,7 +32,7 @@ import java.util.Scanner;
 
 @SuppressWarnings("Duplicates")
 
-public class LoginBean implements ServletResponseAware, ServletRequestAware {
+public class loginBean implements ServletResponseAware, ServletRequestAware {
     private String username, password,usernameRegisto,passwordRegisto, link;
     private Server h;
     private Map<String, Object> session;

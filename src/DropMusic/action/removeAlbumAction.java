@@ -1,6 +1,5 @@
 package DropMusic.action;
 
-import DropMusic.model.addAlbumBean;
 import DropMusic.model.removeAlbumBean;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.interceptor.SessionAware;
