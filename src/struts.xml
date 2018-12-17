@@ -220,7 +220,7 @@
             <result name="FAILED">/index.jsp</result>
         </action>
 
-        <action name="associarFicheiros">
+        <action name="associarFicheiros" class="DropMusic">
             <result>/associarFicheiros.jsp</result>
         </action>
 
