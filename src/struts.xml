@@ -113,15 +113,15 @@
         </action>
 
         <action name="inserirArtista">
-            <result>/addArtista.jsp</result>
+            <result>/adicionaArtista.jsp</result>
         </action>
 
         <action name="inserirMusica">
-            <result>/addMusica.jsp</result>
+            <result>/adicionaMusica.jsp</result>
         </action>
 
         <action name="inserirAlbum">
-            <result>/addAlbum.jsp</result>
+            <result>/adicionaAlbum.jsp</result>
         </action>
 
         <action name="insereArtista" class="DropMusic.action.adicionarArtistaAction" method="addArtista">
