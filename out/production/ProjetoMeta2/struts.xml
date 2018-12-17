@@ -113,15 +113,15 @@
         </action>
 
         <action name="inserirArtista">
-            <result>/addArtista.jsp</result>
+            <result>/adicionaArtista.jsp</result>
         </action>
 
         <action name="inserirMusica">
-            <result>/addMusica.jsp</result>
+            <result>/adicionaMusica.jsp</result>
         </action>
 
         <action name="inserirAlbum">
-            <result>/addAlbum.jsp</result>
+            <result>/adicionaAlbum.jsp</result>
         </action>
 
         <action name="insereArtista" class="DropMusic.action.adicionarArtistaAction" method="addArtista">
@@ -198,7 +198,7 @@
             <result name="FAILED">/fail.jsp</result>
         </action>
 
-        <action name="connectDropboxLogin" class="DropMusic.action.LoginAction" method="connectDropboxLogin">
+        <action name="connectDropboxLogin" class="DropMusic.action.loginAction" method="connectDropboxLogin">
             <result name="SUCCESS">/success.jsp</result>
             <result name="FAILED">/fail.jsp</result>
         </action>
@@ -209,7 +209,7 @@
             <result name="FAILED">/fail.jsp</result>
         </action>
 
-        <action name="loginDropbox" class="DropMusic.action.LoginAction" method="saveTokenLogin">
+        <action name="loginDropbox" class="DropMusic.action.loginAction" method="saveTokenLogin">
             <result name="SUCCESS">/usernameDropbox.jsp</result>
             <result name="FAILED">/fail.jsp</result>
         </action>
