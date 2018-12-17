@@ -131,6 +131,15 @@ public class LoginAction extends ActionSupport implements SessionAware {
         return "FAILED";
     }
 
+    public String connectDropboxLogin(){
+        if (link==null){
+            createLink();
+            String resposta = this.getLoginBean().connectLogin();
+            return resposta;
+        }
+        return "FAILED";
+    }
+
     public String saveToken(){
         if (code != null){
             this.getLoginBean().setCode(code);

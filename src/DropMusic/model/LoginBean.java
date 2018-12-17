@@ -210,6 +210,37 @@ public class LoginBean implements ServletResponseAware, ServletRequestAware {
         return "SUCCESS";
     }
 
+    public String connectLogin(){
+        Scanner in = new Scanner(System.in);
+
+        //Check if there is a cookie
+        this.setServletRequest((HttpServletRequest) ActionContext.getContext().get(ServletActionContext.HTTP_REQUEST));
+        for(Cookie c : servletRequest.getCookies()) {
+            if (c.getName().equals("token"))
+                //Expire the cookie
+                c.setMaxAge(0);
+        }
+
+        OAuthService service = new ServiceBuilder()
+                .provider(DropBoxApi2.class)
+                .apiKey(API_APP_KEY)
+                .apiSecret(API_APP_SECRET)
+                .callback("http://localhost:8081/loginDropbox")
+                .build();
+
+        if (service == null) return "FAILED";
+
+        link = service.getAuthorizationUrl(null);
+        try{
+            if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+                Desktop.getDesktop().browse(URI.create(link));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "SUCCESS";
+    }
+
     public String checkToken(){
         OAuthService service = new ServiceBuilder()
                 .provider(DropBoxApi2.class)
