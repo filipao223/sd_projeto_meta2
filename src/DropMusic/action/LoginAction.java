@@ -150,6 +150,16 @@ public class LoginAction extends ActionSupport implements SessionAware {
         return "FAILED";
     }
 
+    public String saveTokenLogin(){
+        if (code != null){
+            this.getLoginBean().setCode(code);
+            String resposta = this.getLoginBean().checkTokenLogin();
+            return resposta;
+        }
+        //System.out.println("Did not enter here");
+        return "FAILED";
+    }
+
     public void setUsername(String username) {
         this.username = username;
     }

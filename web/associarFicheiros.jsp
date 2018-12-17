@@ -12,10 +12,10 @@
 <body>
 <div align = "left">
     <s:form action = "associarFicheiros" method = "post">
-        <s:text name = "Nome da Musica" />
-        <s:textfield name = "nomeMusica"></s:textfield>
-        <s:text name = "Nome do Ficheiro" />
-        <s:textfield name = "nomeFicheiro"></s:textfield>
+        <s:text name = "music" />
+        <s:textfield name = "music"></s:textfield>
+        <s:text name = "file" />
+        <s:textfield name = "file"></s:textfield>
         <p><s:submit /></p>
     </s:form>
 </div>

@@ -280,6 +280,45 @@ public class LoginBean implements ServletResponseAware, ServletRequestAware {
         return "FAILED";
     }
 
+    public String checkTokenLogin(){
+        OAuthService service = new ServiceBuilder()
+                .provider(DropBoxApi2.class)
+                .apiKey(API_APP_KEY)
+                .apiSecret(API_APP_SECRET)
+                .callback("http://localhost:8081/loginDropbox")
+                .build();
+        System.out.println("Token in bean is: " + this.code);
+        Verifier verifier = new Verifier(this.code);
+        Token accessToken = service.getAccessToken(null, verifier);
+        if (accessToken != null){
+            System.out.println("Define API_USER_TOKEN: " + accessToken.getToken());
+            System.out.println("Define API_USER_SECRET: " + accessToken.getSecret());
+
+            //Save in cookies
+            this.setServletResponse((HttpServletResponse) ActionContext.getContext().get(ServletActionContext.HTTP_RESPONSE));
+            Cookie token = new Cookie("token", accessToken.getToken());
+            token.setMaxAge(60*60*24); // Make the cookie last a day
+            servletResponse.addCookie(token);
+
+            try {
+                Server h = (Server) LocateRegistry.getRegistry(1099).lookup("MainServer"); //procura server para conectar
+                HashMap<String, Object> data = new HashMap<>();
+                data.put("feature", "71");
+                data.put("username", this.username);
+                data.put("token", new String(String.valueOf(token)));
+
+                h.receive(data);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            } catch (NotBoundException e) {
+                e.printStackTrace();
+            }
+
+            return "SUCCESS";
+        }
+        return "FAILED";
+    }
+
     private HttpServletResponse servletResponse;
     @Override
     public void setServletResponse(HttpServletResponse servletResponse) {

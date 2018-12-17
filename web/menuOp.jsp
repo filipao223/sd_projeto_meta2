@@ -49,7 +49,7 @@
             <s:submit value="Associar conta à dropbox"/>
         </s:form>
 
-        <s:form action="associarFicheiro" method="post">
+        <s:form action="associarFicheirosJsp" method="post">
             <s:submit value="Associar musica a um ficheiro"/>
         </s:form>
 

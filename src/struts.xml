@@ -210,7 +210,7 @@
             <result name="FAILED">/fail.jsp</result>
         </action>
 
-        <action name="loginDropbox" class="DropMusic.action.LoginAction" method="saveToken">
+        <action name="loginDropbox" class="DropMusic.action.LoginAction" method="saveTokenLogin">
             <result name="SUCCESS">/usernameDropbox.jsp</result>
             <result name="FAILED">/fail.jsp</result>
         </action>
@@ -220,8 +220,13 @@
             <result name="FAILED">/fail.jsp</result>
         </action>
 
-        <action name="associarFicheiros" class="DropMusic">
+        <action name="associarFicheirosJsp">
             <result>/associarFicheiros.jsp</result>
+        </action>
+
+        <action name="associarFicheiros" class="DropMusic.action.AssociarFicheiroAction" method="action">
+            <result name="SUCCESS">/success.jsp</result>
+            <result name="FAILED">/fail.jsp</result>
         </action>
 
         <action name="partilharDropbox">

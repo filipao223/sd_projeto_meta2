@@ -199,18 +199,34 @@
             <result name="FAILED">/fail.jsp</result>
         </action>
 
+        <action name="connectDropboxLogin" class="DropMusic.action.LoginAction" method="connectDropboxLogin">
+            <result name="SUCCESS">/success.jsp</result>
+            <result name="FAILED">/fail.jsp</result>
+        </action>
+
         <action name="saveToken" class="DropMusic.action.LoginAction" method="saveToken">
             <result name="SUCCESS">/menuOp.jsp</result>
             <result name="redirect" type="redirect">/menuOp.jsp</result>
             <result name="FAILED">/fail.jsp</result>
         </action>
 
-        <action name="associarDropbox">
-            <result>/menuOp.jsp</result>
+        <action name="loginDropbox" class="DropMusic.action.LoginAction" method="saveTokenLogin">
+            <result name="SUCCESS">/usernameDropbox.jsp</result>
+            <result name="FAILED">/fail.jsp</result>
         </action>
 
-        <action name="associarFicheiros">
+        <action name="usernameDropbox">
+            <result name="SUCCESS">/menuOp.jsp</result>
+            <result name="FAILED">/fail.jsp</result>
+        </action>
+
+        <action name="associarFicheirosJsp">
             <result>/associarFicheiros.jsp</result>
+        </action>
+
+        <action name="associarFicheiros" class="DropMusic.action.AssociarFicheiroAction" method="action">
+            <result name="SUCCESS">/success.jsp</result>
+            <result name="FAILED">/fail.jsp</result>
         </action>
 
         <action name="partilharDropbox">
