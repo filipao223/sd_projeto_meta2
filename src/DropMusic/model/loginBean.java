@@ -120,7 +120,7 @@ public class loginBean implements ServletResponseAware, ServletRequestAware {
 
             System.out.println("Ultimo packote " + c.getLast());
 
-            if(c.getLast().get("answer").equals("User logged in")){
+            if(c.getLast().get("answer").equals("User registered")){
                 return "SUCCESS";
             }
 
