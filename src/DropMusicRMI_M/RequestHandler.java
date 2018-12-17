@@ -583,6 +583,13 @@ public class RequestHandler implements Runnable {
                             e.printStackTrace();
                         }
                         break;
+            //--------------------------------------------------------------------------------------------------------------------------
+                    case Request.CHECK_USER_EXISTS:
+                        user = (String) data.get("username");
+                        rc = checkIfUserExists(user);
+                        if (rc==-1) sendCallback(user, "User not found", null, code);
+                        else sendCallback(user, "User found", null, code);
+                        break;
                 }
             }
         } catch (Exception e){
