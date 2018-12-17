@@ -60,6 +60,11 @@
             <result name="FAILED">/index.jsp</result>
         </action>
 
+        <action name="logout" class="DropMusic.action.logoutAction" method="logout">
+            <result name="SUCCESS">/index.jsp</result>
+            <result name="FAILED">/fail.jsp</result>
+        </action>
+
         <action name="registar" class="DropMusic.action.LoginAction" method="registar">
             <result name="SUCCESS">/index.jsp</result>
             <result name="FAILED">/index.jsp</result>
@@ -198,6 +203,22 @@
             <result name="SUCCESS">/menuOp.jsp</result>
             <result name="redirect" type="redirect">/menuOp.jsp</result>
             <result name="FAILED">/fail.jsp</result>
+        </action>
+
+        <action name="associarDropbox">
+            <result>/menuOp.jsp</result>
+        </action>
+
+        <action name="associarFicheiros">
+            <result>/associarFicheiros.jsp</result>
+        </action>
+
+        <action name="partilharDropbox">
+            <result>/partilhaDropbox.jsp></result>
+        </action>
+
+        <action name="playback">
+            <result>/playback.jsp</result>
         </action>
 
     </package>

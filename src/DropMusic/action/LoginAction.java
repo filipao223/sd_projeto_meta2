@@ -41,11 +41,17 @@ public class LoginAction extends ActionSupport implements SessionAware {
     public void createUsername(){
         if(!session.containsKey("username"))
             this.session.put("username",username);
+        else if(session.containsKey("username")){
+            this.session.replace("username",username);
+        }
     }
 
     public void createPassword(){
         if(!session.containsKey("password"))
             this.session.put("password",password);
+        else if(session.containsKey("password")){
+            this.session.replace("password",password);
+        }
     }
 
     public LoginBean getLoginBean() {

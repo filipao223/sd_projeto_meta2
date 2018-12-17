@@ -230,7 +230,7 @@ public class LoginBean implements ServletResponseAware, ServletRequestAware {
                 HashMap<String, Object> data = new HashMap<>();
                 data.put("feature", "71");
                 data.put("username", this.username);
-                data.put("token", token);
+                data.put("token", new String(String.valueOf(token)));
 
                 h.receive(data);
             } catch (RemoteException e) {
